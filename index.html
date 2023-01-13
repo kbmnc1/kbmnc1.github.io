@@ -63,10 +63,10 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -75,10 +75,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ctfshow-萌新-web1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-ctfshow-萌新-web3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web1/" class="article-date">
-  <time class="dt-published" datetime="2023-01-13T02:51:50.000Z" itemprop="datePublished">2023-01-13</time>
+    <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" class="article-date">
+  <time class="dt-published" datetime="2023-01-13T03:13:25.000Z" itemprop="datePublished">2023-01-13</time>
 </a>
     
   </div>
@@ -89,7 +89,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web1/">ctfshow-萌新-web2</a>
+      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/">ctfshow-萌新-web3</a>
     </h1>
   
 
@@ -97,18 +97,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>ctf.show 萌新模块 web2关，此关卡使用intval()函数强制将参数转换成数值型，可以使用字符绕过，配合特殊符号控制SQL的查询结果，从而获取flag，这一关过滤了or，我们可以使用加号，减号，乘号，除号，或，左移等方式绕过<br><img src="/images/4.png"><br>打开题目可以获得源代码<br><img src="/images/5.png"><br>源码提示我们 id&#x3D;1000时，即可获取flag</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ preg_match(<span class="string">&quot;/or|\+/i&quot;</span>,<span class="variable">$id</span>)</span><br></pre></td></tr></table></figure>
-<p>这里将or +进行检查，不能用它们，只能绕过</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ?<span class="built_in">id</span>=2*500</span><br></pre></td></tr></table></figure>
-<p>这里有两个关键点，首先是intval()函数的转换，我们可以利用intval函数转换字符串时的特性，来绕过校验，输入一下payload，即可获取flag<br><img src="/images/6.png"><br>intval()函数转换整数类型使，会原样转换；而转化字符串类型时（ get请求获取的参数都是字符串类型）会从第一个字符开始转换，直到遇到不是数字的字符才会停止转换</p>
-<p>利用这一特性，我们使用星号（<em>）来扰乱intval函数的转换，2</em>500会被转换成2，从而使if判断条件中的 intval($id) &gt; 999 不成立，从而执行else里的SQL语句</p>
-<p>在SQL语句中，我们的 2*500 会进行算术运算，结果是 1000，从而使SQL查询 id&#x3D;1000的信息，从而获取flag</p>
+        <p><img src="/images/7.png"><br>打开题目，可以得到源码<br><img src="/images/8.png"><br>这里进行了过滤</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /or|\-|\\|\*|\&lt;|\&gt;|\!|x|hex|\+/i</span><br></pre></td></tr></table></figure>
+<p>需要进行绕过<br>所以构建payload</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ?<span class="built_in">id</span>=<span class="string">&quot;1000&quot;</span></span><br></pre></td></tr></table></figure>
+<p>就可以得到flag<br><img src="/images/9.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web1/" data-id="clctxztto0000v0u7ht815f0w" data-title="ctfshow-萌新-web2" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" data-id="clctykr6g0000iwu7d200dnfw" data-title="ctfshow-萌新-web3" class="article-share-link">Share</a>
       
       
       
@@ -134,7 +132,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web1</a>
+      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web2</a>
     </h1>
   
 
@@ -142,11 +140,18 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>ctf.show 萌新模块 web2关，此关卡使用intval()函数强制将参数转换成数值型，可以使用字符绕过，配合特殊符号控制SQL的查询结果，从而获取flag，这一关过滤了or，我们可以使用加号，减号，乘号，除号，或，左移等方式绕过<br><img src="/images/4.png"><br>打开题目可以获得源代码<br><img src="/images/5.png"><br>源码提示我们 id&#x3D;1000时，即可获取flag</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ preg_match(<span class="string">&quot;/or|\+/i&quot;</span>,<span class="variable">$id</span>)</span><br></pre></td></tr></table></figure>
+<p>这里将or +进行检查，不能用它们，只能绕过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ?<span class="built_in">id</span>=2*500</span><br></pre></td></tr></table></figure>
+<p>这里有两个关键点，首先是intval()函数的转换，我们可以利用intval函数转换字符串时的特性，来绕过校验，输入一下payload，即可获取flag<br><img src="/images/6.png"><br>intval()函数转换整数类型使，会原样转换；而转化字符串类型时（ get请求获取的参数都是字符串类型）会从第一个字符开始转换，直到遇到不是数字的字符才会停止转换</p>
+<p>利用这一特性，我们使用星号（<em>）来扰乱intval函数的转换，2</em>500会被转换成2，从而使if判断条件中的 intval($id) &gt; 999 不成立，从而执行else里的SQL语句</p>
+<p>在SQL语句中，我们的 2*500 会进行算术运算，结果是 1000，从而使SQL查询 id&#x3D;1000的信息，从而获取flag</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="clctxztts0002v0u70gojd0gj" data-title="ctfshow-萌新-web1" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="clctykr6k0001iwu7gjvs42j5" data-title="ctfshow-萌新-web2" class="article-share-link">Share</a>
       
       
       
@@ -194,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="clctxzttt0003v0u71a2b43rf" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="clctykr6l0002iwu78ao0a860" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Share</a>
       
       
       
@@ -245,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="clctxzttr0001v0u7bn1pgg6q" data-title="Hello World" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="clctykr6m0003iwu717s7a3tm" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
@@ -273,7 +278,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
     </div>
@@ -283,16 +288,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web1/">ctfshow-萌新-web2</a>
+            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/">ctfshow-萌新-web3</a>
           </li>
         
           <li>
-            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web1</a>
+            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web2</a>
           </li>
         
           <li>
