@@ -63,10 +63,10 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -74,6 +74,143 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-sqlmap安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2023-02-01T06:28:02.000Z" itemprop="datePublished">2023-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/">sqlmap安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>sqlmap是渗透测试中常用的一款注入工具，其实在注入工具方面，sqlmap就足够用了<br>SQLMAP是什么？<br>SQLMAP是一个开源的自动化SQL注入工具，其主要功能是扫描、发现并利用给定的URL的SQL注入漏洞。</p>
+<p>SQLMAP可以对URL干嘛？<br>判断可注入的参数<br>判断可以使用哪一种SQL注入技术进行注入<br>判断识别数据库的类型<br>根据用户的选择，从数据库中读取数据</p>
+<p>SQLMAP支持的注入技术<br>基于布尔的盲注：根据返回页面判断条件真假的注入。<br>基于时间的盲注：不能根据页面返回内容判断任何信息，用条件语句查看时间延退语<br>句是否执行（即页面返回时间是否增加）来判断。<br>基于报错的注入：页面会返回错误信息，或者把注入的语句的结果直接返回在页面中<br>基于联合查询的注入：可以使用UNION的情况下的注入。<br>堆查询注入：同时执行多条语句的注入。</p>
+<p>SQLMAP支持的数据库类型<br>主要包括一些关系型数据库（RMDBS），如MySQL、Oracle、PostgreSQL、Microsoft SQL Server、 Microsoft Access、 IBM DB2、 SQLite、 Firebird、Sybase、SAP MaxDB、Informix、HSQLDB等</p>
+<p>SQLMAP检测注入漏洞的流程<br>网站连通性检测：检测目标的连接状态<br>WAF探测：检测网站是否受WAF保护。<br>网页稳定性检测：检测网页是否稳定。<br>参数动态性检测：检测参数是否具有动态性。<br>启发式注入检测：探测该参数点是否是动态的、是否为可能的注入点。</p>
+<p>SQLMAP的误报检测机制<br>误报检测：SQLMAP的布尔盲注、时间盲注方式判断注入点时，存在误报的可能。为防止误报SQLMap引入了误报检测机制。两个基础检测算法页面相似度对比技术（在各种注入技术中大量使用）：在SQLMap检测的整个过程中，会有一个原始响应的定义，指的是在网站连通性检测的过程中，如果网站成功响应，则把该响应定义为原始响应（包括状态码、HTTP响应头、HTTP响应体）。一个HTTP请求成功响应后，将与原始响应进行对比，得出对比结果，算法输出为True表示当前响应与原始响应相似，算法输出为False表示当前响应与原始响应不相似。高斯分布识别响应机制（在UNION注入和时间盲注过程中使用）：网站的响应是基于逻辑的，如果一组请求，网站的处理逻辑相同，那么响应几乎也是相同的。如果某一个响应出现了变化，则可以认为网站处理逻辑变了，这种逻辑的变化可能正是因为注入成功了。</p>
+<p>常见参数：<br>参数：-u                                                   直接输入目标URL<br>参数：-m                                                  从文件中取出保存的url进行检测<br>参数：-r                                                    从文本文件中获取http请求<br>参数：-g                                                    测试注入Google的搜索结果的GET参数<br>参数：-l                                                     从Burp或者WebScarab代理中获取日志</p>
+<p>枚举参数<br>参数：-b，–banner                                   列出版本号<br>参数：–dbs                                               列出所有数据库的库名<br>参数：–current-db                                     列出当前使用的数据库库名<br>参数：–tables                                            列出数据库中的表<br>参数：–columns                                        列出数据表中的字段<br>参数：–dump                                            转储数据库表项，查询字段值<br>参数：–users                                             列出所有管理用户<br>参数：–passwords                                    列出并破解数据库用户的hash<br>参数：–privileges                                      列出数据库管理员权限</p>
+<p>请求参数<br>参数：–method                                          指定使用的http方法<br>参数：–data                                               把数据以POST方式提交<br>参数：–param-del                                         GET或POST的数据用&amp;以外的其他字符分割<br>参数：–cookie，–load-cookies，–drop-setcookie                设置cookie<br>参数：–referer                                            伪造HTTP中的Referer头<br>参数：–user-agent                                     自定义HTTP中的User-Agent头<br>参数：–headers                                         增加额外的http头，不同的头使用“\n”分隔<br>参数：–timeout                                          设置超时时间<br>参数：–retries                                            设置重试次数</p>
+<p>检测参数<br>参数：-V显示等级，共有7个等级，为0时只显示python错误以及严重的信息，为1时（默认）同时显示基本信息和警告信息，为2时同时显示debug信息，为3时同时显示注入的payload，为4时同时显示HTTP请求，为5时同时显示HTTP响应头，为6时同时显示HTTP响应页面。<br>参数：–risk                                                 风险等级，共有4个等级<br>参数：-p，–skip                                    手动用-p参数设置想要测试的参数，-skip设置跳过的参数<br>参数：–flush-session                                 清空SQLMAP缓存的会话信息</p>
+<p>注入技术参数<br>参数：–technique             指定sqlmap使用的探测技术，B表示布尔盲注，T表示时间盲注（延退注入），E表示报错注入，U表示联合查询注入，S表示堆查询注入<br>参数：–time-sec                                          设定延退注入的时间（默认为5秒）<br>参数：–union-cols                                       设定UNION查询字段数<br>参数：–union-char                                       设定UNION查询时使用的字符<br>参数：–second-order                                   设置二次注入的URL<br>参数：–tamper                                     使用sqlmap自带的tamper或者自己写的tamper来混滑payload，通常用来绕过WAF和IPS。</p>
+<p>操作系统权限参数<br>参数：–os-cmd执行操作系统命令<br>参数：–os-shell交互式的操作系统的shell<br>文件读写参数<br>参数：–file-read<br>读取文件<br>参数：–file-write<br>写入文件<br>参数：–file-dest指明写入文件的绝对路径</p>
+<p>常见用法1：-u参数（直接输入目标URL）<br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/page.phpid=10-currentdb//%E7%88%86%E5%BD%93%E5%89%8D%E5%BA%93">http://192.168.0.110/page.phpid=10-currentdb//爆当前库</a><br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/pagephpzid=10-D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D--tables//%E7%88%86%E8%A1%A8%E5%90%8D">http://192.168.0.110/pagephpzid=10-D数据库名--tables//爆表名</a><br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/page.phpzid=10-D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-T%E8%A1%A8%E5%90%8Dcolumns//%E7%88%86%E5%AD%97%E6%AE%B5">http://192.168.0.110/page.phpzid=10-D数据库名-T表名columns//爆字段</a><br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/page.phpid=10-D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-T%E8%A1%A8%E5%90%8D-C%E5%AD%97%E6%AE%B5%E5%90%8D1%EF%BC%8C%E5%AD%97%E6%AE%B5%E5%90%8D2%EF%BC%8C%E5%AD%97%E6%AE%B5%E5%90%8D3..%EF%BC%88%E4%BA%92%E7%9B%B8%E7%94%A8%E9%80%97%E5%8F%B7%E9%9A%94%E5%BC%80%EF%BC%89-dump//%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE">http://192.168.0.110/page.phpid=10-D数据库名-T表名-C字段名1，字段名2，字段名3..（互相用逗号隔开）-dump//显示数据</a></p>
+<p>常见用法2：-r参数（从文本文件中获取http请求<br>命令实例：sqimap-r&#x2F;usr&#x2F;a.txt<br>说明：使用该命令时须指明a.txt（保存着http请求包）文件所在的绝对路径<br>验证过程：与-u参数类似<br>判断可注入的参数<br>判断可以用哪种SQL注入技术来注入<br>识别出所有存在的注入类型<br>尝试去判定数据库版本、开发语言、操作系统版本</p>
+<p>常见用法3：-m参数（从文件中取出保存的url进行检测）<br>命令实例：sqlmap-m&#x2F;usr&#x2F;b.txt<br>说明：使用该命令时须指明b.txt（保存着多项URL）文件所在的绝对路径<br>验证过程：与-u参数类似<br>判断可注入的参数<br>判断可以用哪种SQL注入技术来注入<br>识别出所有存在的注入类型<br>尝试去判定数据库版本、开发语言、操作系统版本<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Gjqhs/article/details/122987112">https://blog.csdn.net/Gjqhs/article/details/122987112</a></p>
+<p>sqlmap下载地址:<a target="_blank" rel="noopener" href="https://github.com/sqlmapproject/sqlmap">https://github.com/sqlmapproject/sqlmap</a><br>sqlmap是Python编写的SQL注入工具，安装sqlmap前需要先安装Python环境运行命令:python sqlmap. py<br><img src="/images/14.png"></p>
+<p>sqlmap的使用<br>一、探测漏洞</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap. py -u URL</span><br></pre></td></tr></table></figure>
+<p><img src="/images/15.png"></p>
+<p>二、获取数据库内数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqImap. py -u URL --dbs</span><br></pre></td></tr></table></figure>
+<p><img src="/images/16.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" data-id="cldlarq770004t8u78lkc5p7v" data-title="sqlmap安装" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-web安全入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-02-01T06:15:37.000Z" itemprop="datePublished">2023-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/">web安全入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SQL注入漏洞产生原理分为1.不当的类型处理 2.不安全的数据库配置 3.不合理的查询集处理 4.不当的错误处理 5.转义字符处理不当 6.多个提交处理不当<br>SQL注入漏洞的检测 在URL: id&#x3D;33后边加入单引号，发现sQL语句报错<br>例如：<br><img src="/images/10.png"><br>SQL注入漏洞的利用<br><img src="/images/11.png"><br><img src="/images/12.png"><br><img src="/images/13.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" data-id="cldlarq770005t8u76lyg7rx7" data-title="web安全入门" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ctfshow-萌新-web9" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/" class="article-date">
+  <time class="dt-published" datetime="2023-01-13T03:55:42.000Z" itemprop="datePublished">2023-01-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/">ctfshow-萌新-web9</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/" data-id="cldlarq750002t8u70jia8igd" data-title="ctfshow-萌新-web9" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-ctfshow-萌新-web3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -106,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" data-id="clctykr6g0000iwu7d200dnfw" data-title="ctfshow-萌新-web3" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" data-id="cldlarq740001t8u715y79tyu" data-title="ctfshow-萌新-web3" class="article-share-link">Teilen</a>
       
       
       
@@ -151,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="clctykr6k0001iwu7gjvs42j5" data-title="ctfshow-萌新-web2" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="cldlarq710000t8u7geu6g6nd" data-title="ctfshow-萌新-web2" class="article-share-link">Teilen</a>
       
       
       
@@ -199,7 +336,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="clctykr6l0002iwu78ao0a860" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cldlarq770006t8u7a0f986f9" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Teilen</a>
       
       
       
@@ -250,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="clctykr6m0003iwu717s7a3tm" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="cldlarq760003t8u70k3g2xdz" data-title="Hello World" class="article-share-link">Teilen</a>
       
       
       
@@ -278,9 +415,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
     </div>
   </div>
 
@@ -288,9 +425,21 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/">sqlmap安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/">web安全入门</a>
+          </li>
+        
+          <li>
+            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/">ctfshow-萌新-web9</a>
+          </li>
         
           <li>
             <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/">ctfshow-萌新-web3</a>
@@ -298,14 +447,6 @@
         
           <li>
             <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web2</a>
-          </li>
-        
-          <li>
-            <a href="/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客ctfshow -萌新-web1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/01/07/hello-world/">Hello World</a>
           </li>
         
       </ul>
