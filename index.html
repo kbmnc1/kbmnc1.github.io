@@ -61,12 +61,12 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Buscar"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -75,10 +75,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-SQL注入的常见绕过方式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-条件竞争漏洞" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2023-02-01T08:11:33.000Z" itemprop="datePublished">2023-02-01</time>
+    <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time class="dt-published" datetime="2023-02-08T03:44:04.000Z" itemprop="datePublished">2023-02-08</time>
 </a>
     
   </div>
@@ -89,7 +89,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/">SQL注入的常见绕过方式</a>
+      <a class="p-name article-title" href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
     </h1>
   
 
@@ -97,19 +97,13 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="01关键词过滤绕过"><a href="#01关键词过滤绕过" class="headerlink" title="01关键词过滤绕过"></a>01关键词过滤绕过</h2><h3 id="方法一：双写绕过"><a href="#方法一：双写绕过" class="headerlink" title="方法一：双写绕过"></a>方法一：双写绕过</h3><p><img src="/images/31.png"></p>
-<h3 id="方法二：大小写绕过"><a href="#方法二：大小写绕过" class="headerlink" title="方法二：大小写绕过"></a>方法二：大小写绕过</h3><p><img src="/images/32.png"></p>
-<h2 id="02空格绕过"><a href="#02空格绕过" class="headerlink" title="02空格绕过"></a>02空格绕过</h2><h3 id="注释绕过空格"><a href="#注释绕过空格" class="headerlink" title="注释绕过空格"></a>注释绕过空格</h3><p><img src="/images/33.png"></p>
-<h3 id="空格其他绕过方式"><a href="#空格其他绕过方式" class="headerlink" title="空格其他绕过方式"></a>空格其他绕过方式</h3><p><img src="/images/34.png"></p>
-<h2 id="03过滤等号-x3D-绕过"><a href="#03过滤等号-x3D-绕过" class="headerlink" title="03过滤等号&#x3D;绕过"></a>03过滤等号&#x3D;绕过</h2><p>一、使用like绕过<br>使用通配符like 执行的效果和&#x3D;一致，所以可以用来绕过等号过滤。-1’ union select * from users where id like 2%23<br>二、使用&lt;&gt;绕过<br>&lt;&gt;等价于!&#x3D;所以我们可以在&lt;&gt;前加个!就变成等于了。例如:id&#x3D;-1’ union select * from users where !(id&lt;&gt;2)%23</p>
-<h2 id="04宽字节注入"><a href="#04宽字节注入" class="headerlink" title="04宽字节注入"></a>04宽字节注入</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>一、编码类型:<br>单字节字符集:所有的字符都使用一个字节来表示，比如ASCII编码。<br>多字节字符集:在多字节字符集中，一部分字节用多个字节来表示，另一部分（可能没有）用单个字节来表示。<br>UTF-8编码:是一种编码的编码方式(多字节编码），它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度，一般会占3个字节。<br>GBK编码:也是一种多字节编码，它一般占两个字节。<br>而一般常见的存在宽字节注入的编码类型为:GBK和BIG5</p>
-<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>二、宽字节注入:<br>在实际应用中，为防止注入漏洞通常会把单引号处理下，那又为啥要处理单引号呢?比如:<br>$ i d&#x3D;$_GET[ ‘id’];<br>select * from users where id &#x3D; ‘$id’<br>    上边呢我们输入进去的 SQL语句，都会赋值给$id这个变量，然后会被包含在引号里，在PHP中引号里的内容是属于字符串的，所以我们直接在这里输入的一些SQL命令都会被当作字符串处理，这些命令就不会起到作用。<br>    所以我们在字符型注入中才会先用单引号闭合下，再输入SQL命令，这样后面的命令才会执行。如果程序中在我们输入的单引号前加上个反斜杠比如: \’。这样的话这个单引号就是个字符了，没有单引号闭合的作用，所以就起到了防护的作用<br>为了突破这个防护，我们可以使用宽字节注入的方式进行突破:<br>我们的使用方式是:<br>%df’<br>当我们在单引号前加上%df 的时候，也就是输入%df’这样传入到数据库中就会变成:%df%5c’<br>那么宽字节注入的突破方式除了%df 之外还有其他的方式么?<br>其实是有的,我们可以看下GBK的编码表:<br><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/zh/hanzi-gbk-bianma.php%E8%BF%99%E9%87%8C%E7%9A%84%DE%5C%E3%80%81%E0%5C%EF%BC%8C%E7%AD%89%E9%83%BD%E6%98%AF%E5%8F%AF%E4%BB%A5%E7%9A%84%E3%80%82">https://www.qqxiuzi.cn/zh/hanzi-gbk-bianma.php这里的%DE%5C、%E0%5C，等都是可以的。</a></p>
-<h3 id="宽字节注入步骤"><a href="#宽字节注入步骤" class="headerlink" title="宽字节注入步骤"></a>宽字节注入步骤</h3><p>一、在i d&#x3D;1后面添加单引号发现被转义,在前面加了个<br><img src="/images/34.png"><br>二、使用%df进行闭合:i d&#x3D;1%df’ and 1&#x3D;1%23<br><img src="/images/35.png"></p>
+        <h2 id="条件竞争漏洞简介"><a href="#条件竞争漏洞简介" class="headerlink" title="条件竞争漏洞简介"></a>条件竞争漏洞简介</h2><p>条件竞争漏洞是一种服务器端的漏洞，发生在多个线程同时访问同一个共享代码、变量、文件等没有进行锁操作或者同步操作的场景中。由于服务器端在处理不同用户的请求时是并发进行的，因此，如果并发处理不当或相关操作逻辑顺序设计的不合理时，就会产生条件竞争漏洞。该漏洞一般出现在与数据库系统频繁交互的位置，例如金额同步、支付等较敏感操作处。另外条件竞争漏洞也会出现在其他位置，例如文件的操作处理等。<br>挖掘工具<br>BurpSuite<br>条件竞争漏洞是由于多线程并发引起的问题，因此建议采用burpsuite的intruder模块进行该漏洞的测试和挖掘。<br>例如将线程调到25进行多线程异步发包，也可以使用curl工具同时发包。通过查看多个异步请求返回的不同结果，比如11个测试中有10个相同，那一个包可能就是攻击成功的请求。<br><img src="/images/185.png"></p>
+<h2 id="条件竞争漏洞-文件上传"><a href="#条件竞争漏洞-文件上传" class="headerlink" title="条件竞争漏洞-文件上传"></a>条件竞争漏洞-文件上传</h2><p>条件竞争漏洞-文件上传，这里是将文件上传到服务器，然后检查上传的文件的类型，如果不符合条件就删除。这里我们可以采用时间差的方式访问上传的文件，总有一次我们在文件删除之前就访问到了这个文件，如果这个文件的目的是生成php的一句话木马，那么就可以在服务器中执行了shell了。<br><img src="/images/186.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/" data-id="cldlgk54a00050ou79m5q6y4s" data-title="SQL注入的常见绕过方式" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/" data-id="cldv55z9j000n0wu79rhf10as" data-title="条件竞争漏洞" class="article-share-link">Teilen</a>
       
       
       
@@ -121,10 +115,10 @@
 
 
   
-    <article id="post-sqlmap的一些使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-XML" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-02-01T07:17:56.000Z" itemprop="datePublished">2023-02-01</time>
+    <a href="/2023/02/08/XML/" class="article-date">
+  <time class="dt-published" datetime="2023-02-08T03:31:00.000Z" itemprop="datePublished">2023-02-08</time>
 </a>
     
   </div>
@@ -135,7 +129,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/">sqlmap的一些使用</a>
+      <a class="p-name article-title" href="/2023/02/08/XML/">XML</a>
     </h1>
   
 
@@ -143,31 +137,13 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="sqlmap-tamper的使用"><a href="#sqlmap-tamper的使用" class="headerlink" title="sqlmap tamper的使用"></a>sqlmap tamper的使用</h2><p>  sqlmap是一款人见人爱的自动化SQL注入工具，能够以良好的引擎发现给定URL中的可注入处，并自动的完成注入。<br>    但是由于SQL注入的影响过于广泛，致使现代程序的防护越来越严密。为了突破这些防护，我们可以使用tamper。sqImap&#x2F;tamper是官方给出的些绕过脚本，可以配合渗透测试人员完成更高效更高质量的测试。<br>    当然我们也可以自己更有针对性的编写一些绕过脚本。</p>
-<h3 id="一、输入命令"><a href="#一、输入命令" class="headerlink" title="一、输入命令"></a>一、输入命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap.py -u 192.168.30.124:8203/base64.php? <span class="built_in">id</span>=MQ=—-tamper=base64encode</span><br></pre></td></tr></table></figure>
-<p><img src="/images/17.png"></p>
-<h3 id="二、获取数据库信息"><a href="#二、获取数据库信息" class="headerlink" title="二、获取数据库信息"></a>二、获取数据库信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap. py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ==—-tamper=base64encode --dbs</span><br></pre></td></tr></table></figure>
-<p><img src="/images/18.png"></p>
-<h3 id="三、获取数据表信息"><a href="#三、获取数据表信息" class="headerlink" title="三、获取数据表信息"></a>三、获取数据表信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ== --tamper=base64encode-D security --tables</span><br></pre></td></tr></table></figure>
-<p><img src="/images/19.png"></p>
-<h3 id="四、获取字段信息"><a href="#四、获取字段信息" class="headerlink" title="四、获取字段信息"></a>四、获取字段信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ== --tamper=base64encode -D security -Tusers</span><br></pre></td></tr></table></figure>
-<p><img src="/images/20.png"></p>
-<h3 id="五、获取数据"><a href="#五、获取数据" class="headerlink" title="五、获取数据"></a>五、获取数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u 192.168.30.124:8203/base64.php?<span class="built_in">id</span>=MQ==---tamper=base64encode -D security -T</span><br></pre></td></tr></table></figure>
-<p><img src="/images/21.png"></p>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>-D后面是数据库名称<br>-T后面是表的名称<br>-C来指明字段<br>–dump来获取数据</p>
-<h2 id="sqlmap-–os-shell"><a href="#sqlmap-–os-shell" class="headerlink" title="sqlmap –os-shell"></a>sqlmap –os-shell</h2><p>sqlmap中的–os-shell命令是sqlmap提供的一个执行目标系统命令的交互式shell。<br>使用方法为:sqlmap.py -u URL –os-shell</p>
-<h2 id="sqlmap读写文件"><a href="#sqlmap读写文件" class="headerlink" title="sqlmap读写文件"></a>sqlmap读写文件</h2><pre><code>sqlmap提供了可读写文件的参数，首先找需要知道网站的物理路径，其次需要有可写或可读的权限。
-</code></pre>
-<p>(1) –file-read&#x3D;RFILE<br>  从后端的数据库管理系统文件系统读取文件（物理路径)<br>(2) –file-write&#x3D;WFILE<br>  编辑后端的数据库管理系统文件系统上的本地文件(mssql xp_shell)<br>(3) –file-dest&#x3D;DFILE<br>  后端的数据库管理系统写入文件的绝对路径</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u http://192.168.30.124:8203/Less-1/?<span class="built_in">id</span>=1 --file-read /etc/passwd</span><br></pre></td></tr></table></figure>
-<p><img src="/images/22.png"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlmap.py -u http://192.168.30.124:8203/Less-1/?<span class="built_in">id</span>=1 --file-dest /var/www/html/info.php</span><br></pre></td></tr></table></figure>
-<p><img src="/images/23.png"></p>
+        <h2 id="XML简介"><a href="#XML简介" class="headerlink" title="XML简介"></a>XML简介</h2><p>XML全名为Extensible Markup Language，指的是可扩展标记语言。标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。在电子计算机中，标记指计算机所能理解的信息符号,通过此种标记，计算机之间可以处理包含各种的信息。XML语法上和HTML比较相似，最大的区别就是HTML中的元素时固定的，XML的标签时可以由用户自定义的。XML被设计用来传输和存储数据，是当今处理分布式结构信息的有效工具。早在1998年，W3C就发布了XML1.0规范，使用它来简化lnternet的文档信息传输。<br><img src="/images/182.png"></p>
+<p>XML文档，分为三部分，第一部分是XML的声明，第二部分是XML的DTD文档类型的定义，第三部分是XML文档元素，DTD文件用来定义XML文件遵循的规则(格式)，对于DTD来说，有两种构建方式，分别为内部DTD声明和外部DTD声明。<br>01内部DTD声明:<br>&lt;IDOCTYPE根元素[元素声明]&gt;<br>一个实体由三部分构成:&amp;符号,实体名称,分号G)，这里&amp;不论在GET还是在POST中都需要进行URL编码，因为是使用参数传入xml的，&amp;符号会被认为是参数间的连接符号。<br><img src="/images/184.png"><br>02外部DTD声明:<br>&lt;!DOCTYPE根元素sYSTEM”文件名”&gt;<br>XML中对数据的引用称为实体，实体中有一类叫外部实体，用来引入外部资源，有SYSTEM和PUBLIc两个关键字，表示实体来自本地计算机还是公共计算机，外部实体的引用可以借助各种协议，比如如下的三种:<br>file:&#x2F;l&#x2F;path&#x2F;to&#x2F;file.ext<a target="_blank" rel="noopener" href="http://url/">http://url</a><br>php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;conf.php<br><img src="/images/183.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/" data-id="cldlgk54a00040ou776t5ezon" data-title="sqlmap的一些使用" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/08/XML/" data-id="cldv55z9b00010wu7a4335880" data-title="XML" class="article-share-link">Teilen</a>
       
       
       
@@ -179,10 +155,10 @@
 
 
   
-    <article id="post-sqlmap安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-pwn" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" class="article-date">
-  <time class="dt-published" datetime="2023-02-01T06:28:02.000Z" itemprop="datePublished">2023-02-01</time>
+    <a href="/2023/02/07/pwn/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T10:43:44.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -193,7 +169,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/">sqlmap安装</a>
+      <a class="p-name article-title" href="/2023/02/07/pwn/">pwn</a>
     </h1>
   
 
@@ -201,33 +177,19 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>sqlmap是渗透测试中常用的一款注入工具，其实在注入工具方面，sqlmap就足够用了<br>SQLMAP是什么？<br>SQLMAP是一个开源的自动化SQL注入工具，其主要功能是扫描、发现并利用给定的URL的SQL注入漏洞。</p>
-<p>SQLMAP可以对URL干嘛？<br>判断可注入的参数<br>判断可以使用哪一种SQL注入技术进行注入<br>判断识别数据库的类型<br>根据用户的选择，从数据库中读取数据</p>
-<p>SQLMAP支持的注入技术<br>基于布尔的盲注：根据返回页面判断条件真假的注入。<br>基于时间的盲注：不能根据页面返回内容判断任何信息，用条件语句查看时间延退语<br>句是否执行（即页面返回时间是否增加）来判断。<br>基于报错的注入：页面会返回错误信息，或者把注入的语句的结果直接返回在页面中<br>基于联合查询的注入：可以使用UNION的情况下的注入。<br>堆查询注入：同时执行多条语句的注入。</p>
-<p>SQLMAP支持的数据库类型<br>主要包括一些关系型数据库（RMDBS），如MySQL、Oracle、PostgreSQL、Microsoft SQL Server、 Microsoft Access、 IBM DB2、 SQLite、 Firebird、Sybase、SAP MaxDB、Informix、HSQLDB等</p>
-<p>SQLMAP检测注入漏洞的流程<br>网站连通性检测：检测目标的连接状态<br>WAF探测：检测网站是否受WAF保护。<br>网页稳定性检测：检测网页是否稳定。<br>参数动态性检测：检测参数是否具有动态性。<br>启发式注入检测：探测该参数点是否是动态的、是否为可能的注入点。</p>
-<p>SQLMAP的误报检测机制<br>误报检测：SQLMAP的布尔盲注、时间盲注方式判断注入点时，存在误报的可能。为防止误报SQLMap引入了误报检测机制。两个基础检测算法页面相似度对比技术（在各种注入技术中大量使用）：在SQLMap检测的整个过程中，会有一个原始响应的定义，指的是在网站连通性检测的过程中，如果网站成功响应，则把该响应定义为原始响应（包括状态码、HTTP响应头、HTTP响应体）。一个HTTP请求成功响应后，将与原始响应进行对比，得出对比结果，算法输出为True表示当前响应与原始响应相似，算法输出为False表示当前响应与原始响应不相似。高斯分布识别响应机制（在UNION注入和时间盲注过程中使用）：网站的响应是基于逻辑的，如果一组请求，网站的处理逻辑相同，那么响应几乎也是相同的。如果某一个响应出现了变化，则可以认为网站处理逻辑变了，这种逻辑的变化可能正是因为注入成功了。</p>
-<p>常见参数：<br>参数：-u                                                   直接输入目标URL<br>参数：-m                                                  从文件中取出保存的url进行检测<br>参数：-r                                                    从文本文件中获取http请求<br>参数：-g                                                    测试注入Google的搜索结果的GET参数<br>参数：-l                                                     从Burp或者WebScarab代理中获取日志</p>
-<p>枚举参数<br>参数：-b，–banner                                   列出版本号<br>参数：–dbs                                               列出所有数据库的库名<br>参数：–current-db                                     列出当前使用的数据库库名<br>参数：–tables                                            列出数据库中的表<br>参数：–columns                                        列出数据表中的字段<br>参数：–dump                                            转储数据库表项，查询字段值<br>参数：–users                                             列出所有管理用户<br>参数：–passwords                                    列出并破解数据库用户的hash<br>参数：–privileges                                      列出数据库管理员权限</p>
-<p>请求参数<br>参数：–method                                          指定使用的http方法<br>参数：–data                                               把数据以POST方式提交<br>参数：–param-del                                         GET或POST的数据用&amp;以外的其他字符分割<br>参数：–cookie，–load-cookies，–drop-setcookie                设置cookie<br>参数：–referer                                            伪造HTTP中的Referer头<br>参数：–user-agent                                     自定义HTTP中的User-Agent头<br>参数：–headers                                         增加额外的http头，不同的头使用“\n”分隔<br>参数：–timeout                                          设置超时时间<br>参数：–retries                                            设置重试次数</p>
-<p>检测参数<br>参数：-V显示等级，共有7个等级，为0时只显示python错误以及严重的信息，为1时（默认）同时显示基本信息和警告信息，为2时同时显示debug信息，为3时同时显示注入的payload，为4时同时显示HTTP请求，为5时同时显示HTTP响应头，为6时同时显示HTTP响应页面。<br>参数：–risk                                                 风险等级，共有4个等级<br>参数：-p，–skip                                    手动用-p参数设置想要测试的参数，-skip设置跳过的参数<br>参数：–flush-session                                 清空SQLMAP缓存的会话信息</p>
-<p>注入技术参数<br>参数：–technique             指定sqlmap使用的探测技术，B表示布尔盲注，T表示时间盲注（延退注入），E表示报错注入，U表示联合查询注入，S表示堆查询注入<br>参数：–time-sec                                          设定延退注入的时间（默认为5秒）<br>参数：–union-cols                                       设定UNION查询字段数<br>参数：–union-char                                       设定UNION查询时使用的字符<br>参数：–second-order                                   设置二次注入的URL<br>参数：–tamper                                     使用sqlmap自带的tamper或者自己写的tamper来混滑payload，通常用来绕过WAF和IPS。</p>
-<p>操作系统权限参数<br>参数：–os-cmd执行操作系统命令<br>参数：–os-shell交互式的操作系统的shell<br>文件读写参数<br>参数：–file-read<br>读取文件<br>参数：–file-write<br>写入文件<br>参数：–file-dest指明写入文件的绝对路径</p>
-<p>常见用法1：-u参数（直接输入目标URL）<br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/page.phpid=10-currentdb//%E7%88%86%E5%BD%93%E5%89%8D%E5%BA%93">http://192.168.0.110/page.phpid=10-currentdb//爆当前库</a><br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/pagephpzid=10-D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D--tables//%E7%88%86%E8%A1%A8%E5%90%8D">http://192.168.0.110/pagephpzid=10-D数据库名--tables//爆表名</a><br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/page.phpzid=10-D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-T%E8%A1%A8%E5%90%8Dcolumns//%E7%88%86%E5%AD%97%E6%AE%B5">http://192.168.0.110/page.phpzid=10-D数据库名-T表名columns//爆字段</a><br>sqlmap-u<a target="_blank" rel="noopener" href="http://192.168.0.110/page.phpid=10-D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D-T%E8%A1%A8%E5%90%8D-C%E5%AD%97%E6%AE%B5%E5%90%8D1%EF%BC%8C%E5%AD%97%E6%AE%B5%E5%90%8D2%EF%BC%8C%E5%AD%97%E6%AE%B5%E5%90%8D3..%EF%BC%88%E4%BA%92%E7%9B%B8%E7%94%A8%E9%80%97%E5%8F%B7%E9%9A%94%E5%BC%80%EF%BC%89-dump//%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE">http://192.168.0.110/page.phpid=10-D数据库名-T表名-C字段名1，字段名2，字段名3..（互相用逗号隔开）-dump//显示数据</a></p>
-<p>常见用法2：-r参数（从文本文件中获取http请求<br>命令实例：sqimap-r&#x2F;usr&#x2F;a.txt<br>说明：使用该命令时须指明a.txt（保存着http请求包）文件所在的绝对路径<br>验证过程：与-u参数类似<br>判断可注入的参数<br>判断可以用哪种SQL注入技术来注入<br>识别出所有存在的注入类型<br>尝试去判定数据库版本、开发语言、操作系统版本</p>
-<p>常见用法3：-m参数（从文件中取出保存的url进行检测）<br>命令实例：sqlmap-m&#x2F;usr&#x2F;b.txt<br>说明：使用该命令时须指明b.txt（保存着多项URL）文件所在的绝对路径<br>验证过程：与-u参数类似<br>判断可注入的参数<br>判断可以用哪种SQL注入技术来注入<br>识别出所有存在的注入类型<br>尝试去判定数据库版本、开发语言、操作系统版本<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Gjqhs/article/details/122987112">https://blog.csdn.net/Gjqhs/article/details/122987112</a></p>
-<p>sqlmap下载地址:<a target="_blank" rel="noopener" href="https://github.com/sqlmapproject/sqlmap">https://github.com/sqlmapproject/sqlmap</a><br>sqlmap是Python编写的SQL注入工具，安装sqlmap前需要先安装Python环境运行命令:python sqlmap. py<br><img src="/images/14.png"></p>
-<p>sqlmap的使用<br>一、探测漏洞</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqlmap. py -u URL</span><br></pre></td></tr></table></figure>
-<p><img src="/images/15.png"></p>
-<p>二、获取数据库内数据</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python sqImap. py -u URL --dbs</span><br></pre></td></tr></table></figure>
-<p><img src="/images/16.png"></p>
+        <p>Pwn的由来<br>PWN是一个黑客语法的俚语词，自“own”这个字引申出来的，这个词的含义在于，玩家在整个邮递对战中处于胜利的优势，或是说明竞争对手处在完全惨败的情况下。<br><img src="/images/172.png"><br>GDB调试<br>gdb是Linux下常用的一款命令行调试器，拥有十分强大的调试功能。<br><img src="/images/173.png"><br>汇编基础<br>汇编语言中，esp寄存器用于指示当前函数栈帧的栈顶的位置，函数中局部变量都存储在栈空间中，栈的生长方向是从高地址到低地址方向增长的。<br><img src="/images/174.png"><br>PWN入门<br>漏洞一般是gets函数这种对输入没有限制导致溢出、格式化字符串漏洞、数据类型转换的时候产生了溢出。<br>环境<br>Ubuntu虚拟机<br>Pwntools<br>Gdb-peda<br>LibcSearcher<br>Pwntools安装:<br>一个ctf框架和漏洞利用开发库，用python开发,必备神器。<br>apt-get install python python-pip python-dev libssl-dev libffi-dev build-essentialpip install -U setuptools<br>pip install –upgrade pip<br>pip install –upgrade pwntools<br>安装完成后，打开python测试，执行from pwn import *不会报错即可。<br>Gdb安装:<br>动态调试软件，必备。apt-get install gdb<br>Peda插件安装:<br>Gdb常用插件，可以提升调试效率<br>git clone <a target="_blank" rel="noopener" href="https://github/">https://github</a>. com&#x2F;longld&#x2F;peda.git<del>&#x2F;peda<br>echo “source ~&#x2F;peda&#x2F;peda. py”&gt;&gt;</del>l .gdbinit<br>32位程序支持:<br>必备<br>apt-get install libc6-dev-i 386<br>LibcSearcher:<br>泄露libc库中函数的偏移的库，建议安装，可以节省时间，提高效率。<br>sudo pip install capstone<br>git clone https:&#x2F;lgithub. com&#x2F;lieanu&#x2F;LibcSearcher. git<br>cd LibcSearcher<br>python setup. py develop</p>
+<h2 id="寄存器相关知识"><a href="#寄存器相关知识" class="headerlink" title="寄存器相关知识"></a>寄存器相关知识</h2><p>EIP:主要用于存放当前代码段即将被执行的下一条指令的偏移，但其本质上并不能直接被指令直接访问。<br>ESP:栈顶指针，始终指向栈顶。<br>EBP:栈底指针，通常叫栈基址。<br>栈溢出<br>当一个我们在输入数据时，如果程序对输入没有限制，会导致输入的超出预定的范围，覆盖掉原来的数据。<br><img src="/images/175.png"><br>CANNARY(栈保护)<br>CANNARY是一种缓冲区溢出攻击的缓解手段，当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canaryo</p>
+<h2 id="ret2text"><a href="#ret2text" class="headerlink" title="ret2text"></a>ret2text</h2><p>Ret2text即执行程序种已有的代码，例如程序种写有system等系<br>系统的调用函数。<br><img src="/images/176.png"><br><img src="/images/177.png"><br><img src="/images/178.png"><br>PLT与GOT<br><img src="/images/179.png"><br>Ret2libc介绍<br>Ret2libc即控制函数的执行libc中的函数，通常是返回至某个函数的具体位置。一般情况下我们会选择执行system ( “&#x2F;bin&#x2F;sh”) ,所以我们需要知道system函数的地址。<br>CTF移动逆向概述<br>1.移动逆向题目概述<br>如今的CTF比赛中，常见的题目类型有MISC，Crypto，Web，Reverse,PWN。但在MISC中，有的时候会出现“.apk”后缀的文件格式。Reverse目录下除了有.exe格式的文件，也可能会有. apk文件现在比较大型的CTF竞赛，都会有一个专门的Mobile栏目，栏目下的题目基本上都是移动逆向的题目。包括IOS逆向与Android逆向，Android逆向的占比较大。随着CTF比赛规模的增大，移动逆向相关的题目也会越来越多。<br>2.移动逆向题目考察技能点<br>由于安卓逆向的题目在CTF移动逆向模块中的出现次数较多，故本次课程以安卓逆向为主。IOS逆向可能会<br>有部分区别，但也可借鉴这种逆向分析思路。目前来说，CTF题目中的安卓逆向题目主要考察参赛者的以下能力:<br>1.信息搜集能力<br>2.安卓逆向(smali代码）静态分析能力<br>3.安卓so文件的逆向分析能力<br>4.Java代码的分析能力<br>5.算法还原，代码编写能力<br>6.结合AS进行代码的动态调试能力<br>7.应用脱壳，OLLVM混淆分析能力<br>3.移动逆向出题目形式<br>一般移动逆向的题目，会给出一个附件，下载完成后，参赛选手需要根据附件内容进行分析。如果是.apk文件，直接安装在安卓设备上或者模拟器中，进行测试，寻找flag。对于后缀名不是.apk的文件，需要使用WinHex或者使用010Editor查看附件的文件结构。对文件进行复原，如下图中的附件。将文件复原成.apk文件后，就可以进行安装分析了。<br><img src="/images/180.png"></p>
+<h2 id="做Android逆向题的准备工作"><a href="#做Android逆向题的准备工作" class="headerlink" title="做Android逆向题的准备工作"></a>做Android逆向题的准备工作</h2><p>工欲善其事必先利其器<br>在参加CTF时，想要方便快捷的解答Android逆向题目，就应该赛前准备好环境。包括JDK SDK NDK<br>Adb ApkTool<br>Jadx<br>AndroidK iller<br>AndroidStudioApkScan-PKIDGDA<br>IDA<br>具有root权限的安卓模拟器(夜神雷电蓝叠)<br>或者一台具有root权限的安卓手机(google nuexs 5x)<br>CTF中安卓明文flag类题目概述</p>
+<h2 id="对付此类题目的一些Tips"><a href="#对付此类题目的一些Tips" class="headerlink" title="对付此类题目的一些Tips"></a>对付此类题目的一些Tips</h2><p>1.使用现有工具<br>查壳工具AndroidKiller lDA脱壳机<br>2.直接暴力强行逆向<br>此方法为做逆向的通常思路，当遇到算法校验时，要逆向还原出算法。<br>3.异想天开,另辟蹊径<br>可能出题者因为出题思路不严谨，题目存在bug，因此题目的解法与出颖者的预想思路不同但同样能够获取到flag</p>
+<h2 id="明文flag逆向题目一般解题流程"><a href="#明文flag逆向题目一般解题流程" class="headerlink" title="明文flag逆向题目一般解题流程"></a>明文flag逆向题目一般解题流程</h2><p>一些Android逆向题目解题步骤<br>做安卓逆向CrackMe的一般流程:<br>1.首先查看下载好的附件是否后缀为. apk文件<br>2.安装测试apk文件，找到返回的关键信息<br>3.查询apk是否被加固是否有壳<br>4.反编译apk<br>5.定位关键信息<br>6.函数实现功能的具体分析<br>7.修改关键部分的smali代码<br>8.将修改好的apk进行编译<br>9.签名安装，测试apk文件</p>
+<h2 id="了解Android的文件结构"><a href="#了解Android的文件结构" class="headerlink" title="了解Android的文件结构"></a>了解Android的文件结构</h2><p>META-INF目录签名信息，包括公司信息、文件的HASH值<br>Res目录资源信息，包括图片、xml(布局文件、字符串、风格样式等)<br>AndroidMainfest.xml清单文件，包括APK包名、四大组件的一些申明定义、权限、程序的入口<br>Classes.dex可执行文件，包括java的类信息、方法信息、字段信息、虚拟机指令。<br>dex文件的生成流程是从java源码-&gt;class文件-&gt;dex文件<br>Resources.arsc资源序号文件，包括资源里的所有ID、名称。资源ID对应文件是R.class<br>Lib目录动态库，扩展名是.so ,包括C++代码，有各种平台，比如x86,armAssets目录自定义资源，比如.txt,mp4等文件<br><img src="/images/181.png"></p>
+<h2 id="了解Android的文件结构-1"><a href="#了解Android的文件结构-1" class="headerlink" title="了解Android的文件结构"></a>了解Android的文件结构</h2><p>分析smali跳转语法<br>CrackMe_clover02.apk<br>要获取到vip权限才能拿到flag。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/" data-id="cldlgk54b00060ou7h9x7huya" data-title="sqlmap安装" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/pwn/" data-id="cldv55z9e00080wu710hkdhbt" data-title="pwn" class="article-share-link">Teilen</a>
       
       
       
@@ -239,10 +201,10 @@
 
 
   
-    <article id="post-web安全入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-字符转化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-02-01T06:15:37.000Z" itemprop="datePublished">2023-02-01</time>
+    <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T10:33:26.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -253,7 +215,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/">web安全入门</a>
+      <a class="p-name article-title" href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
     </h1>
   
 
@@ -261,12 +223,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>SQL注入漏洞产生原理分为1.不当的类型处理 2.不安全的数据库配置 3.不合理的查询集处理 4.不当的错误处理 5.转义字符处理不当 6.多个提交处理不当<br>SQL注入漏洞的检测 在URL: id&#x3D;33后边加入单引号，发现sQL语句报错<br>例如：<br><img src="/images/10.png"><br>SQL注入漏洞的利用<br><img src="/images/11.png"><br><img src="/images/12.png"><br><img src="/images/13.png"><br><img src="/images/24.png"><br><img src="/images/25.png"><br><img src="/images/26.png"><br><img src="/images/27.png"><br><img src="/images/28.png"><br><img src="/images/29.png"><br><img src="/images/30.png"></p>
+        <h2 id="字符转换算法"><a href="#字符转换算法" class="headerlink" title="字符转换算法"></a>字符转换算法</h2><p>flag<br>使用010Editor把ASCII码转换为字符。<br><img src="/images/166.png"><br>Tea<br>Tea算法又叫做微型加密算法(Tiny Encryption Algorithm）是一种易于描述和执行的块密码，通常只需要很少的代码就可以实现。<br><img src="/images/167.png"><br>RC4<br>在密码学中，RC4（来自Rivest Cipher 4的缩写）是一种流加密算法,密钥长度可变。它加解密使用相同的密钥，因此也属于对称加密算法。RC4是有线等效加密（WEP）中采用的加密算法，也曾经是TLS可采用的算法之一。<br><img src="/images/168.png"><br>RC4在IDA中伪代码展示的特征。<br><img src="/images/169.png"><br>MD5<br>MD5消息摘要算法(Message-Digest Algorithm) ，一种被广泛使用的密码散列函数，可以产生出一个128位的散列值，用于确保信息传输完整一致。<br><img src="/images/170.png"><br>MD5在IDA中存在一个初始化函数。<br><img src="/images/171.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" data-id="cldlgk54b00070ou72h9k8m85" data-title="web安全入门" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/" data-id="cldv55z9g000e0wu769zq38kw" data-title="字符转换算法" class="article-share-link">Teilen</a>
       
       
       
@@ -278,10 +240,10 @@
 
 
   
-    <article id="post-ctfshow-萌新-web9" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-动态调试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/" class="article-date">
-  <time class="dt-published" datetime="2023-01-13T03:55:42.000Z" itemprop="datePublished">2023-01-13</time>
+    <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T10:27:05.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -292,7 +254,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/">ctfshow-萌新-web9</a>
+      <a class="p-name article-title" href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
     </h1>
   
 
@@ -300,11 +262,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h2 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h2><p>使用OD进行动态调试<br>进入OD进行动态调试关键函数可以发现我们的明文密码对比<br><img src="/images/165.png"></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/" data-id="cldlgk54a00030ou7ch1b1em9" data-title="ctfshow-萌新-web9" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" data-id="cldv55z9g000b0wu7398gds3z" data-title="动态调试" class="article-share-link">Teilen</a>
       
       
       
@@ -316,10 +279,10 @@
 
 
   
-    <article id="post-ctfshow-萌新-web3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-静态分析" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" class="article-date">
-  <time class="dt-published" datetime="2023-01-13T03:13:25.000Z" itemprop="datePublished">2023-01-13</time>
+    <a href="/2023/02/07/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T10:24:08.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -330,7 +293,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/">ctfshow-萌新-web3</a>
+      <a class="p-name article-title" href="/2023/02/07/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/">静态分析</a>
     </h1>
   
 
@@ -338,16 +301,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><img src="/images/7.png"><br>打开题目，可以得到源码<br><img src="/images/8.png"><br>这里进行了过滤</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /or|\-|\\|\*|\&lt;|\&gt;|\!|x|hex|\+/i</span><br></pre></td></tr></table></figure>
-<p>需要进行绕过<br>所以构建payload</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ?<span class="built_in">id</span>=<span class="string">&quot;1000&quot;</span></span><br></pre></td></tr></table></figure>
-<p>就可以得到flag<br><img src="/images/9.png"></p>
+        <p>静态分析<br>使用IDA对程序静态分析<br>1.程序开头拷贝了一段字符串。<br>2.发现了判断成功和失败的函数。<br><img src="/images/163.png"><br>使用IDA对程序静态分析<br>3.在下图位置处可以知道输入的长度需要为0x11。<br><img src="/images/164.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web3/" data-id="cldlgk54800010ou72m3hhtrs" data-title="ctfshow-萌新-web3" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" data-id="cldv55z9k000r0wu7af7d1o1p" data-title="静态分析" class="article-share-link">Teilen</a>
       
       
       
@@ -359,10 +318,10 @@
 
 
   
-    <article id="post-ctfshow-萌新-web2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-逆向" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" class="article-date">
-  <time class="dt-published" datetime="2023-01-13T02:51:50.000Z" itemprop="datePublished">2023-01-13</time>
+    <a href="/2023/02/07/%E9%80%86%E5%90%91/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T10:10:14.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -373,7 +332,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/">ctfshow-萌新-web2</a>
+      <a class="p-name article-title" href="/2023/02/07/%E9%80%86%E5%90%91/">逆向</a>
     </h1>
   
 
@@ -381,18 +340,15 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>ctf.show 萌新模块 web2关，此关卡使用intval()函数强制将参数转换成数值型，可以使用字符绕过，配合特殊符号控制SQL的查询结果，从而获取flag，这一关过滤了or，我们可以使用加号，减号，乘号，除号，或，左移等方式绕过<br><img src="/images/4.png"><br>打开题目可以获得源代码<br><img src="/images/5.png"><br>源码提示我们 id&#x3D;1000时，即可获取flag</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ preg_match(<span class="string">&quot;/or|\+/i&quot;</span>,<span class="variable">$id</span>)</span><br></pre></td></tr></table></figure>
-<p>这里将or +进行检查，不能用它们，只能绕过</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ?<span class="built_in">id</span>=2*500</span><br></pre></td></tr></table></figure>
-<p>这里有两个关键点，首先是intval()函数的转换，我们可以利用intval函数转换字符串时的特性，来绕过校验，输入一下payload，即可获取flag<br><img src="/images/6.png"><br>intval()函数转换整数类型使，会原样转换；而转化字符串类型时（ get请求获取的参数都是字符串类型）会从第一个字符开始转换，直到遇到不是数字的字符才会停止转换</p>
-<p>利用这一特性，我们使用星号（<em>）来扰乱intval函数的转换，2</em>500会被转换成2，从而使if判断条件中的 intval($id) &gt; 999 不成立，从而执行else里的SQL语句</p>
-<p>在SQL语句中，我们的 2*500 会进行算术运算，结果是 1000，从而使SQL查询 id&#x3D;1000的信息，从而获取flag</p>
+        <h2 id="CTF中的逆向"><a href="#CTF中的逆向" class="headerlink" title="CTF中的逆向"></a>CTF中的逆向</h2><p><img src="/images/152.png"><br>工具的简介<br>查看PE文件信息的工具<br><img src="/images/153.png"><br>IDApro:<br>静态分析的工具<br><img src="/images/154.png"><br>OD:逆向分析中动态调试的工具<br><img src="/images/155.png"></p>
+<h2 id="保护壳"><a href="#保护壳" class="headerlink" title="保护壳"></a>保护壳</h2><p><img src="/images/156.png"><br>解题流程:<br>1.运行程序观察程序特征。<br>2.研究程序的保护方法（保护壳、混淆、反调试)<br>3.使用IDA进行静态分析，根据静态信息进行百度、google搜索。<br>4.反汇编目标软件，快速定位到关键代码进行分析。<br>5.动态调试验证自己的初期猜想，在分析过程中理清程序功能。<br>6.针对程序功能，写出对应脚本，解出flag。<br>收集信息的流程:<br>1.运行程序<br>2.观察程序特征（关键字、按钮、文本框、标题)<br><img src="/images/157.png"><br>测试程序:<br>输入任意数据查看程序返回信息<br><img src="/images/158.png"></p>
+<h2 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h2><p>静态分析定位关键代码:<br>1.分析控制流程<br>控制流可以参见IDA生成的控制流程图(CFG），沿着分支循环和函数调用，逐块地阅读反汇编代码进行分析。<br><img src="/images/159.png"><br>静态分析<br>2.利用数据、代码交叉引用<br>比如输出的提示字符串，可以通过数据交叉引用找到对应的调用位置，进而找出关键代码。代码交叉引用比如图形界面程序获取用户输入，就可以使用对应的 windowsAPI函数，我们就可以通过这些API函数调用位置找到关键代码。<br><img src="/images/160.png"></p>
+<h2 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h2><p>动态分析的目的在于定位关键代码后，在程序运行的过程中，借由输出信息（寄存器，内存变化，程序输出）等来验证自己的推断或是理解程序功能。<br><img src="/images/161.png"><br>收集信息<br>运行程序观察程序特征<br><img src="/images/162.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web2/" data-id="cldlgk54500000ou72c8fh0e7" data-title="ctfshow-萌新-web2" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/%E9%80%86%E5%90%91/" data-id="cldv55z9j000p0wu7acnfgq64" data-title="逆向" class="article-share-link">Teilen</a>
       
       
       
@@ -404,10 +360,10 @@
 
 
   
-    <article id="post-我的第一篇博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-padding-oracle" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time class="dt-published" datetime="2023-01-08T05:29:48.438Z" itemprop="datePublished">2023-01-08</time>
+    <a href="/2023/02/07/padding-oracle/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T09:50:57.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -418,7 +374,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客ctfshow -萌新-web1</a>
+      <a class="p-name article-title" href="/2023/02/07/padding-oracle/">padding oracle</a>
     </h1>
   
 
@@ -426,21 +382,13 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><img src="/images/1.png"></p>
-<p>打开网站可以看到<br><img src="/images/2.png"><br>这一关直接就给了源码, 并提示我们 id &#x3D; 1000 时, 就是flag<br>先分析一下源码, 首先是 intval()函数将参数id转换为数值型, id &gt; 999直接die()结束程序, 也就是说我们传递的id不能大于 999, 明知道1000就是flag, 但不能直接传1000, 否则程序会直接die()结束, 传递的id 即不能大于999, 又需要查询 1000的值 , 这里我们可以通过 or( 逻辑或)来同时传递两个id, 一个id用于绕过intval($id) &gt; 999 的验证, 另一个id 用来返回1000的查询结果, 也就是flag<br>在网站后加 ?id&#x3D;2 or id&#x3D;1000 就可以得到flag<br><img src="/images/3.png"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ?<span class="built_in">id</span>=2 or <span class="built_in">id</span>=1000</span><br></pre></td></tr></table></figure>
-
-<p>当我们输入的参数 id &#x3D; 2 or id &#x3D; 1000 参与SQL的执行时, 会变成下面这样</p>
-<p>select * from article where id &#x3D; 2 or id &#x3D; 1000 order by id limit 1 </p>
-<p>SQL会同时查询2 和 1000 这两个id的信息, 刚才我们试过, id为2时, 没有信息, 那这条SQL查询的结果就只有 id &#x3D; 1000 的信息, 从而返回flag</p>
-<p>除此之外, 还有一些其他的答案, 在此关卡的靶场中可以正常获取flag, 但这些绕过只适用于PHP7.0以前的部分版本, 新版本中已经修复了这些漏洞, 以下是部分答案</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">字符串绕过 <span class="string">&#x27;1000&#x27;</span></span><br><span class="line">二进制 0b1111101000</span><br><span class="line">十六进制 0x38e</span><br><span class="line">两次取反 ~~1000</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangyuxiang946/article/details/120190791?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167357504716800180672362%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167357504716800180672362&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-120190791-null-null.142%5Ev70%5Ewechat,201%5Ev4%5Eadd_ask&utm_term=ctfshowweb1&spm=1018.2226.3001.4187">参考</a></p>
+        <h2 id="padding-oracle原理和简单利用"><a href="#padding-oracle原理和简单利用" class="headerlink" title="padding oracle原理和简单利用"></a>padding oracle原理和简单利用</h2><p>CBC模式<br>CBC模式是一种分组链接模式，目的是为了使原本独立的分组密码加密过程形成迭代，使每次加密的结果影响到下一次加密。这可以强化加密算法的”敏感性”，即实现所谓的”雪崩效应”，在香浓理论中这就是”扰乱原则”<br><img src="/images/144.png"><br><img src="/images/145.png"><br>CBC模式涉及分组，所以肯定存在不能正好分组的情况，这种情况下就需要对最后一组进行填充使用·一定规则。<br>DES满足PKCS#5,AES满足PKCS#7,实际上两者的要求基本一样，区别在于PKCS #5填充是八字节分组而PKCS#7是十六字节，换句话说就是填充的最大位数不一样，一个是o到8一个是o到16.<br><img src="/images/146.png"></p>
+<h2 id="padding-oracle攻击原理"><a href="#padding-oracle攻击原理" class="headerlink" title="padding oracle攻击原理"></a>padding oracle攻击原理</h2><p>首先了解一下使用CBC模式加密敏感信息的服务器是怎么处理我们提交的内容的。假设我们向服务器提交了正确的密码，我们的密码在经过CBC模式加密后传给了服务器，这时服务器会对我们传来的信息尝试解密，如果可以正常解密会返回一个值表示正确，如果不能正常解密则会返回一个值表示错误。而事实上，判断提交的密文能不能正常解密，第一步就是判断密文最后一组的填充值是否正确，也就是观察最后一组解密得到的结果的最后几位，如果错误将直接返回错误，如果正确，再将解密后的结果与服务器存储的结果比对，判断是不是正确的用户。也就是说服务器一共可能有三种判断结果:<br>1.密文不能正常解密;<br>2.密文可以正常解密但解密结果不对;<br>3.密文可以正常解密并且解密结果比对正确;<br>其中第一种情况与第二三种情况的返回值一定不一样，这就给了我们可乘之机——我们可以利用服务器的返回值判断我们提交的内容能不能正常解密，进一步讲，我们可以知道最后一组密文的填充位符不符合填充标准。<br>过程:<br>(1）假设我们捕获到了传输的密文并且我们知道是CBC模式采用的什么加密算法，我们把密文按照加密算法的要求分好组，然后对倒数第二组密文进行构造;<br>(2）先假定明文只填充了一字节，对倒数第二组密文的最后一字节从Ox00到Oxff逐个赋值并逐个向服务器提交，直到服务返回值表示构造后的密文可以正常解密，这意味着构造后的密文作为最后一组密文的IV解密最后一组明文，明文的最后一位是Ox01，也就是说构造的倒数第二组密文的最后一字节与最后一组密文对应中间值的最后一位相异或的结果是Ox01;<br>(3）利用异或运算的性质，我们把我们构造的密文的最后一字节与0x01异或便可得到最后一位密文解密后的中间值（密文与key运算的中间结果是什么，这里我们设为M1，我们已经知道了plaintext的最后一字节是Ox01，可以知道它是由我们构造的IV值与中间值的最后一字节异或得到的;<br>(4）再假定明文填充了两字节也就是明文最后两字节是Ox02，接着构造倒数第二组密文，我们把M1与Ox02异或可以得到填充两字节时密文的最后一位应该是什么，这时候我们只需要对倒数第二位进行不断地赋值尝试（也是从Ox00到Oxff)，当服务器返回值表示可以正常解密时，我们把此时的倒数第二位密文的取值与0xO2异或便可得到最后一组密文倒数第二字节对应的中间值;<br>(5）后再构造出倒数第三倒数第四直到得到最后一组密文的中间值，把这个中间值与截获的密文的倒数第二组异或便可得到最后一组分组的明文;<br>(6）舍弃掉最后一组密文，只提交第一组到倒数第二组密文，通过构造倒数第三组密文得到倒数第二组密文的铭文，最后我们便可以得到全部的明文。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/08/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="cldlgk54c00080ou7c7lpdvey" data-title="我的第一篇博客ctfshow -萌新-web1" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/padding-oracle/" data-id="cldv55z9e00070wu7drjb58fi" data-title="padding oracle" class="article-share-link">Teilen</a>
       
       
       
@@ -452,10 +400,10 @@
 
 
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-密码学" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/01/07/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-01-07T13:21:42.287Z" itemprop="datePublished">2023-01-07</time>
+    <a href="/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T08:59:02.000Z" itemprop="datePublished">2023-02-07</time>
 </a>
     
   </div>
@@ -466,7 +414,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/01/07/hello-world/">Hello World</a>
+      <a class="p-name article-title" href="/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a>
     </h1>
   
 
@@ -474,24 +422,80 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h2 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a>栅栏密码</h2><p>栅栏加密的基本内容<br> 栅栏密码就是把要加密的明文分成N个一组，然后把每组的第1个字符组合，每组第2个字符组合…每组的第N(最后一个分组可能不足N个)个字符组合最后把他们全部连接起来就是密文。<br><img src="/images/118.png"><br>栅栏密码技巧<br>技巧<br>计算整个字符串的长度,得到字符串长度的因数,一般情况下,栅栏密码的分栏数即为字符串长度的因数。<br>特殊情况下下为WW型栅栏密码,任何小于字符串长度的值都有可能成为该密码的k ey，所以第一步永远是确定ke y .<br>www型 顾名思义，将字符串按照www的形状排列，即为答案</p>
+<h2 id="曲路密码-Curve-Cipher"><a href="#曲路密码-Curve-Cipher" class="headerlink" title="曲路密码(Curve Cipher)"></a>曲路密码(Curve Cipher)</h2><p>—种换位密码，需要事先双方约定密钥(也就是曲路路径)。<br>明文:The quick brown fox jumps over the lazy dog填入5行7列表(事先约定填充的行列数)<br><img src="/images/119.png"><br>—种换位密码，需要事先双方约定密钥(也就是曲路路径)。<br>明文:The quick brown fox jumps over the lazy dog填入5行7列表(事先约定填充的行列数)<br>加密的回路线(事先搞清红线方向）<br>按照红线的方向即<br><img src="/images/120.png"><br>平行读取即可<br>密文:gesfc inpho dtmwu qoury zejre hbxva lookT</p>
+<h2 id="列位移密码-Columnar-Transposition-Cipher-云演-让攻防更简单"><a href="#列位移密码-Columnar-Transposition-Cipher-云演-让攻防更简单" class="headerlink" title="列位移密码(Columnar Transposition Cipher)云演|让攻防更简单"></a>列位移密码(Columnar Transposition Cipher)云演|让攻防更简单</h2><p>列移位密码是一种比较简单，易于实现的换位密码，通过一个简单的规则将明文打乱混合成密文<br>例子:<br>明文The quick brown fox jumps over the lazy dog密钥how are u<br>填入5行7列表(事先约定填充的行列数，如果明文不能填充完表格可以约定使用某个字母进行填充)<br>按how are u在字母表中的出现的先后顺序进行编号，我们就有a为1,e为2，的2N9优, 7乃3,u为6，w为7，所以先写出a列，其次e列，以此类推<br>密文:qoury inpho Tkool hbxva uwmtd cfseg erjez<br><img src="/images/121.png"><br>敲击码(Tap code)<br>敲击码是一种以非常简单的方式对文本信息进行编码的方法。因该编码对信息通过使用一系列的点击声音来编码而命名，敲击码是基于5×5方格波利比奥斯方阵来实现的，不同点是是用K字母被整合到C中。<br><img src="/images/122.png"></p>
+<h2 id="xxencode"><a href="#xxencode" class="headerlink" title="xxencode"></a>xxencode</h2><p>XXEncode是一种二进制到文字的编码。类似Base64编码方法。它也是定义了用可打印字符表示二进制文字一种方法，不是一种新的编码集合。XXEncode将输入文本以每三个字节为单位进行编码，如果最后剩下的资料少于三个字节，不够的部份用零补齐。三个字节共有24个Bit，以6-bit为单位分为4个组，每个组以十进制来表示所出现的字节的数值。这个数值只会落在0到63之间。它64可打印字符固定字符范围及顺序!包括大小写字母、数字以及+-字符。它较UUEncode编码优点在于它64字符是常见字符，没有任何特殊字符。它所选择的可打印字符是:+-0123456789ABCDEFGHI JKLMNOPQRSTUVwXYZabcdefghijkImnopqrstuvwxyz，一共64个字符<br><img src="/images/123.png"></p>
+<h2 id="UUencode"><a href="#UUencode" class="headerlink" title="UUencode"></a>UUencode</h2><p>编码过程<br>Uuencode将输入资料以每三个字节为单位进行编码，如此重复进行<br>如果最后剩下的资料少于三个字节，不够的部份用零补齐。这三个字节共有24个Bit，以6-bit为单位分为4个群组，每个群组以十进制来表示所出现的数值只会落在0到63之间。将每个数加上32，所产生的结果<br>刚好落在ASCII字符集中可打印字符(32-空白…95-底线）的范围之中。<br>每60个编码输出（相当于45个输入字节）将输出为独立的一行，每行的开头会加上长度字符，除了最后一行之外，长度字符都应该是’M’这个ASCII字符(77&#x3D;32+45），最后一行的长度字符为32+剩下的字节数目这个ASCIl字符。如果是一个0字节那它应该被转换为0×60而不是0×20，因为（前引用’&#96;’)优于0×20（空格’‘)。<br>编码特点<br>特点一:共有64字符，也是一组6位。类似base64<br>特点二:它定义64字符，不用写映射表，是通过加32转换到可打印字符范围中。比起base64，更为简单!<br><img src="/images/124.png"><br><img src="/images/125.png"></p>
+<h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>根据不同情况产生不同的URL编码:<br>一、针对ASCI字符<br>采用%+16进制的ASCII码生成对应的编码。例如: a b c进行URL编码之后为%61%62%63<br>二、针对中文字符<br>1、作为网址路径的编码，用的是utf-8编码<br>2、当作为查询字符串时，用的是操作系统的默认编码3、GET和POST方法的编码，用的是网页指定的编码<br>4、Ajax调用的URL包含汉字，IE总是采用操作系统指定的编码，而Firefox总是采用utf-8编码。</p>
+<h2 id="摩尔斯电码-Morse"><a href="#摩尔斯电码-Morse" class="headerlink" title="摩尔斯电码(Morse)"></a>摩尔斯电码(Morse)</h2><p>电报通信的语言是由电码符号组成的。电报通信最早是由美国的摩尔斯在1844年发明的，所以电码符号也被叫做摩尔斯电码（(Morse code)。<br>电码符号由两种基本信号和不同的间隔时间组成:短促的点信号“.”读“的”(Di）﹔保持一定时间的长信号“—”，读“答一”(Da）。<br><img src="/images/126.png"><br><img src="/images/127.png"></p>
+<h2 id="Base编码"><a href="#Base编码" class="headerlink" title="Base编码"></a>Base编码</h2><p>Base编码的常见种类<br> base16:16进制（包含数字0-9，大写字母A-F)<br> base32:在base16的基础上增添了大写字母G-Z.<br> base64:在base32的基础上增加小写字母a-z<br>·注意:当编码位数不足时，会使用“&#x3D;”填充<br><img src="/images/128.png"></p>
+<h2 id="Base编码-1"><a href="#Base编码-1" class="headerlink" title="Base编码"></a>Base编码</h2><p>. base58: 将base64的编码除去可能产生歧义的字符，例如数字0和大写字母O，大写字母I和小写字母L，以及影响双击选择的字符&#x2F;和+，一共是58个字符，由于不是2的整数次幂，所以采用辗转相除法进行转换将数字不断对58取余，直到商为0，将每一步的余数都筐表(DaseO4乐云上R文字符之后的表)，如果待转化的数字前面有0，直接附加编码1来代表，有多少个就加多少个(在编码表中1代表0O）解码时需要将长度传入<br>. base36:包含O~9的数字，加上所有26个字母，不区分大小写，不包含任何标点，所有的字母要不全大写，要不全小写<br>. base62:26个字母的大小写再加上O-9，一共62个字符.base62编码在短地址服务中用的比较多<br>. Base91、base92、base85</p>
+<h2 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a>凯撒密码</h2><p>在密码学中，恺撒密码或称恺撒加密、恺撒变换、变换加密，是一种最简单且最广为人知的加密技术。它是一种替换加密的技术，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例如，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推。这个加密方法是以罗马共和时期恺撒的名字命名的<br>根据偏移量的不同，还存在若干特定的恺撒密码名称:<br>偏移量为10: Avocat(A→K)<br>偏移量为13:ROT13<br>偏移量为-5: Cassis (K 6)偏移量为-6: Cassette (K 7)<br>凯撒密码的替换方法是通过排列明文和密文字母表，密文字母表示通过将明文字母表向左或向右移动一个固定数目的位置。例如，当偏移量是左移3的时候（解密时的密钥就是3）:<br>明文字母表:ABCDEFGHI JKLMNOPQRSTUVWXYZ ;<br>密文字母表:DEFGHIJKLMNOPQRSTUVWXYZABC。<br>使用时，加密者查找明文字母表中需要加密的消息中的每一个字母所在位置，并且写下密文字母表中对应的字母。需要解密的人则根据事先已知的密钥反过来操作，得到原来的明文。例如:<br>明文: THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG ;密文:WKH TXLFN EURZQ IRA MXPSV RYHU WKH ODCB GRJ。<br>恺撒密码的加密、解密方法还能够通过同余的数学方法进行计算。首先将字母用数字代替，A&#x3D;O，B&#x3D;1，…，Z&#x3D;25。此时偏移量为n的加密方法即为:<br>E.(z)&#x3D; (z +n) mod 26.<br>解密就是:<br>D.(z)&#x3D;(z -n) mod 26.</p>
+<h2 id="培根密码"><a href="#培根密码" class="headerlink" title="培根密码"></a>培根密码</h2><p>培根密码(Baconian Cipher)是一种替换密码，每个明文字母被一个由5字符组成的序列替换。<br>原理:最初的加密方式就是由‘A’和‘B’组成序列替换明文，比如字母‘D’替换成“aaabb”。<br><img src="/images/129.png"></p>
+<h2 id="猪圈密码"><a href="#猪圈密码" class="headerlink" title="猪圈密码"></a>猪圈密码</h2><p><img src="/images/130.png"></p>
+<h2 id="日历密码"><a href="#日历密码" class="headerlink" title="日历密码"></a>日历密码</h2><p>原则:(1)1—26代表a—z26个英文字母;(2)M,T1,W,T2,F,S1,S2分别代表周一到周日七天（英文首字母代替，1，2为了有别，也人为增加密度) ;(3)密钥即密码表以2020年7月份的日历为密码表，我们来加密这个单词:<br>dictionary<br>第一步，用数字代替明文中的字母，即D I T l 0 N A R 4 9 3 20 9 15 14 1 18第二步，写密文。<br>方法:例如单词首字母D用4代替，则在日历中找到4号，发现是本月第一个星期六，所以用S11表示;又如第七个字母N用数字14代表，找到14号，发现是本月第二个星期二，用T12代表。如此类推，得到密文如下:<br>S11 T22 F1 M3 T22 w3 T12 W1 S13<br>此类密码的解法如下:<br>(1）首先要知道密钥，即密码表;<br>(2）其次分解密码中的星期i，即变成星期+数字的形式<br>(3）去寻找对应的是第几个出现的星期i，对应日期;<br>(4）对应字母,练成单词，短语或句子</p>
+<h2 id="普莱菲儿密码"><a href="#普莱菲儿密码" class="headerlink" title="普莱菲儿密码"></a>普莱菲儿密码</h2><p>具体编写密码的步骤有3步，1.编写密码表⒉.整理明文3.编写密文<br>(1)编写密码表<br>德文中也是讲i和j看做一个子母，法乂月公日足NA日”，eAn母，英文则一般会省略去<br>密码表可以加入密匙，如密匙crazyadog，省略去z，重复字母（如a）只保留第一个，则有:craydog<br>表中其他格子里分别按顺序填入ABC…XY,但密匙中有的字母要去掉。（当然，你也可以乱填，只要你能记得住就行…)<br>原则:提取明文的不重复字母，例如明文为culture，即CULTRE.编写密码表，即将剩余的25个字母出去已有字母依次写下（同样是五乘五方格)<br>整理密钥字母时，如果出现z，则需要去除，因为在英文里z的使用频率最低。<br><img src="/images/131.png"><br>(2)整理明文。<br>原则:两个字母一组，若同一组字母中两字母相同，在两字母中加入X，再重新分组，直到不再出现相同字母。或者最后只余下一个字母，也加一个字母X作补充，使之成对。如:communist &#x3D;&#x3D;&#x3D;》co mm un is t &#x3D;&#x3D;&#x3D;》co mxmu ntst<br>又如: prettys &#x3D;&#x3D;&#x3D;》pr et ty sx (t t不再同一组中，无需家X)(3）写密文。<br>规则<br>(1）如果两个字母在同一行，则要用它右邻的字母替换，如果已在最右边，则用该行最左边的替换，如明文“ce”，按照上表，应替换为“eg”;<br>(2）如果两个字母在同一列，则要用它下边的字母替换，如果已在最下边，则用该行最上边的替换，如明文“oa”，按照上表，应替换为“pm” ;<br>(3）如果两个字母在不同的行和列，则应在密码表中找到两个字母使四个字母组成一个矩形，明文占据两个顶点，需用另外两个顶点的字母替换，如明文为“hx”，可以替换为“vj”或“jv”。<br>现在将一明文加密<br>明文:pishoupideweinasi<br>密匙:culture&#x3D;&#x3D;&#x3D;》即用步骤1中密码表密文分为两两一组,结尾不够加X<br>密文: pi, sh, ou, pi , de, we,in,as， ix<br>按照上述密码表加密，再将密文分为5个一组:得密文:jogvl njofa bsohv ewj</p>
+<h2 id="波利比奥斯方阵"><a href="#波利比奥斯方阵" class="headerlink" title="波利比奥斯方阵"></a>波利比奥斯方阵</h2><p>棋盘密码(Checkerboard Cipher)是使用一个波利比奥斯方阵和两个密钥作为密阵的替换密码，通常在波利比奥斯方阵中J字母往往被包含在l字母中<br>在一些其他利用方式[“衍生”密码]，数字坐标可以代替为字母密钥，其中的字母棋盘顺序可以打乱<br><img src="/images/132.png"></p>
+<h2 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h2><p>维吉尼亚密码是单表替换密码（凯撒加密）的发展。众所周知，单表替换密码都是可以使用词频分析破解的，这是由于语言的使用上有常用性。维吉尼亚密码就是为了避免这种问题而诞生，采取了循环密钥的方式，将明文与表进行对照。<br>维吉尼亚密码自动解密网站: https: &#x2F; &#x2F;<a target="_blank" rel="noopener" href="http://www.guballa.de/vigenere-solver">www.guballa.de/vigenere-solver</a><br>1.根据已知内容进行k的长度猜解（动态规划思想）<br>2.根据对应的字符表得到key<br>3.用来进行解密</p>
+<h2 id="希尔密码"><a href="#希尔密码" class="headerlink" title="希尔密码"></a>希尔密码</h2><p>希尔密码(Hill Cipher)是基于线性代数多重代换<br>密码，由Lester S. Hill在1929年发明。<br>原理:<br>字母转换成26进制数字:A&#x3D;O，B&#x3D;1，C&#x3D;2…Z&#x3D;25一串字母当成n维向量，跟一个n×n的矩阵相乘再将得出的结果MOD26<br><img src="/images/133.png"></p>
+<h2 id="仿射密码"><a href="#仿射密码" class="headerlink" title="仿射密码"></a>仿射密码</h2><p>仿射密码是一种表单代换密码，字母表的每个字母相应的值使用一个简单的数学函数对应一个数值,再把对应数值转换成字母。<br><img src="/images/134.png"><br>加密函数:E(x)&#x3D; (ax + b)(mod m)，其中a与m互质，m是编码系统中字母的个数（通常都是26）。<br>解密函数:D(x) &#x3D; a^(-1)*(x- b)(mod m)，其中a^(-1)是a在Zm群的乘法逆元<br>以E(x)&#x3D;(5x+8) mod 26函数为例子进行介绍，加密字符为AFFINECIPHER,这里我们直接采用字母表26个字母作为编码系统<br><img src="/images/135.png"></p>
+<h2 id="RSA简介"><a href="#RSA简介" class="headerlink" title="RSA简介"></a>RSA简介</h2><p>·在rsa中常用的参数为:N,E,d,p,q,C,m,dp,dq各参数所代表的含义<br>&lt;1&gt;参数N代表模数，在RSA中进行模运算，N&#x3D;p<em>q<br>&lt;2&gt;参数E，d分别代表公钥指数和私钥指数<br>&lt;3&gt; p,q分别为模数N分解后得到的值<br>&lt;4&gt; C,m分别代表密文和明文<br>&lt;5&gt; dp&#x3D;d mod (p-1)dq&#x3D;d mod (q-1)这两个参数是在d的基础上的延申·各参数之间的关系:<br>. &lt;1&gt; c&#x3D;m^e (mod N)m&#x3D;c^d (mod N)<br>. &lt;2&gt; phi&#x3D;(p-1)</em>(q-1) e*d&#x3D;1 (mod phi)这里很重要的一点是e,d的取值范围,1&lt;e&lt;phi,1&lt;d&lt;phi,同时gcd(phi,e)&#x3D;gcd(phi,d)&#x3D;1<br>·这也是RSA解密的基础运算，就是拿到公钥指数E和模数N，将模数N分解为两个质因数，求得私钥指数d，从而利用加密过程或解密过程将最终的内容拿到<br>分解N的手段一<br>当N的长度较小时，可以采用爆破的方式<br>分解N的手段二<br>当N满足因数p ,q相差较小或者相差特别大时，可以采<br>用离线工具yafu<br>分解N的手段三<br>当N的位数过大时，且不满足二中的条件，需要用到在线网站f a c t o r d b o该网站类似于彩虹表，将已被人分解的大数结果存储起来，只需要输入查询即可。<br><img src="/images/136.png"><br><img src="/images/137.png"></p>
+<h2 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h2><p>欧几里得算法(辗转相除法):<br>用来计算最大公约数和最小公倍数<br>两个数p, q最大公约数gcd(p, q)和最小公倍数egcd(p, q)之间的关系:gcd(p,q)&#x3D;(p*q) &#x2F;egcd (p, q)定理: gcd (a, b) &#x3D; gcd(b, a mod b)<br>证明: a可以表示成a &#x3D; kb + r，则r &#x3D; a mod b假设d是a, b的一个公约数，则有<br>d|a, dlb，而r &#x3D; a - kb，因此d|r因此d是(b, a mod b)的公约数<br>假设d 是(b, a mod b)的公约数，则<br>d | b , d lr ，但是a &#x3D; kb +r因此d也是(a,b)的公约数<br>因此(a,b)和(b, a mod b)的公约数是一样的，其最大公约数也必然相等，得证。<br><img src="/images/138.png"></p>
+<h2 id="Coopersmith-attack"><a href="#Coopersmith-attack" class="headerlink" title="Coopersmith attack"></a>Coopersmith attack</h2><p> 已知高位攻击<br>   三种情况:<br>&lt;1&gt;已知素因数p的高位<br>&lt;2&gt;已知明文m高位<br>&lt;3&gt;已知私钥高位d(私钥泄露攻击)<br>. RSA已知高位攻击实用情况:题目所给与同指数攻击相似，有多个公钥模数N，以及未知参数的范围已知或者所给题目中有两个N，其中一个可进行分解，且与另外一个有关系。<br><img src="/images/139.png"><br><img src="/images/140.png"><br><img src="/images/141.png"></p>
+<h2 id="RSA低加密指数攻击"><a href="#RSA低加密指数攻击" class="headerlink" title="RSA低加密指数攻击"></a>RSA低加密指数攻击</h2><p>例如:n很大，4000多位，e很小，e&#x3D;3<br>一般来说，e选取65537.但是在RSA加密的时候有可能会选用e&#x3D;3(因为选取e&#x3D;3省时省力，并且他可能觉得n在4000多位是很安全的，).<br>在这种不安全的情况下，可以直接求得m<br>原公式:<br>c&#x3D;m^e mod n&#x3D;m^3 mod n所以解密公式还能写为:<br>m&#x3D;iroot (c, 3)mod n函数iroot()的意思是开方数N，以及未知参数的范围已知或者所给题目中有两个N，其中一个可进行分解，且与另外一个有关系。</p>
+<h2 id="低加密指数广播攻击"><a href="#低加密指数广播攻击" class="headerlink" title="低加密指数广播攻击"></a>低加密指数广播攻击</h2><p><img src="/images/142.png"><br>中国剩余定理简述:<br>N&#x3D;3<em>5直7<br>x&#x3D;2(mod 3)N1&#x3D;5</em>7&#x3D;35 n1&#x3D;3 d1&#x3D;invert(N1,n1)&#x3D;2x&#x3D;3(mod 5)N2&#x3D;3<em>7&#x3D;21 n2&#x3D;5 d2&#x3D;invert(N2,n2)&#x3D;1x&#x3D;2(mod 7)N3&#x3D;3</em>5&#x3D;15 n3&#x3D;7 d3&#x3D;invert(N3,n3)&#x3D;1x&#x3D;(c1<em>d1</em>N1+c2<em>d2</em>N2+c3<em>d3</em>N3)%N<br>之后对x使用gmpy2.iroot ( ) ,开次方<br>x1除以3余2，且是5和7的公倍数。<br>×2除以5余3，且是3和7的公倍数。x3除以7余2，且是3和5的公倍数<br>(a+i<em>b)%b&#x3D;c [i为任意非零整数]和 a%b &#x3D;c等价<br>本质是从5和7的公倍数中找一个除以3余2的数x1，从3和7的公倍数中找一个除以5余3的数x2，从3和5的公倍数中找一个除以7余2的数x3，再将三个数相加得到解。在求x1，x2，x3时又用了一个小技巧，以x1为例，并非从5和7的公倍数中直接找一个除以3余2的数，而是先找一个除以3余1的数，再乘以2。也就是先求出5和7的公倍数模3下的逆元，再用逆元去乘余数。<br>如果a%b&#x3D;c，那么(a</em>k)%b&#x3D;a%b+a‰b t ..ta%‰&#x3D;c+C. ..+C&#x3D;k<em>c(k&gt;0)也就是说，如果一个除法的余数为c，那么被除数的k倍与除数相除的余数为k</em>C。<br>中国剩余定理便得到方式组的唯一解</p>
+<h2 id="维纳攻击"><a href="#维纳攻击" class="headerlink" title="维纳攻击"></a>维纳攻击</h2><p><img src="/images/143.png"></p>
+<h2 id="四方密码"><a href="#四方密码" class="headerlink" title="四方密码"></a>四方密码</h2><p>四方密码是一种对称式加密法，由法国人Felix Delastelle发明。这种方法将字母两个一组，然后采用多字母替换密码。四方密码用4个5×5的矩阵来加密。每个矩阵都有25个字母。<br>英文中有26个字母，所以一般是去掉其中的Q或者将i和j当做一样。四方密码有4个矩阵（有两个秘钥矩阵，两个顺序矩阵）。<br>以单词hello和world作为密钥，去除重复字母为helo和world,将第一个秘钥矩阵放在右上角，第二个秘钥矩阵放在左下角，两个顺序矩阵分别放在左上角和右下角<br><img src="/images/147.png"></p>
+<h2 id="序列密码"><a href="#序列密码" class="headerlink" title="序列密码"></a>序列密码</h2><p>序列密码单独加密每个位。它是通过将密钥序列中的每个位与每个明文位相加实现的。同步序列密码的密码序列仅仅取决于密钥，而异步序列密码的密钥序列则取决于密钥和密文。绝大多数实际中使用的序列密码都是同步序列密码。<br>如果图中的虚线出现，则说明该序列密码是异步序列密码。<br><img src="/images/148.png"><br><img src="/images/149.png"></p>
+<h2 id="DES和3DES"><a href="#DES和3DES" class="headerlink" title="DES和3DES"></a>DES和3DES</h2><p><img src="/images/150.png"><br>影响因素:<br>Feistel结构的具体实现依赖于以下参数和特征:<br>分组长度:分组长度越长意味着安全性越高，但是会降低加、解密的速度。这种安全性的增加来自更好的扩散性。<br>密钥长度:密钥较长同样意味着安全性较高，但会降低加、解密的速度。这种安全性的增加来自更好的抗穷尽攻击能力和更好的混淆性。现在一般认为64位的密钥还不够。通常使用的密钥长度是128位。<br>迭代轮数:Feistel密码的本质在于单轮不能提供足够的安全性而多轮加密可取得很高的安全性。迭代轮数的典型值是16。<br>子密钥产生算法:子密钥产生越复杂，密码分析就越困难。<br>轮函数F:同样，轮函数越复杂，抗攻击的能力就越强。<br><img src="/images/151.png"><br>子密钥的生成:<br>由64位变为56位，进行循环左移，去掉第9，18，22，25，35，38，43，54，56位变成48位，此时为ki的生成过程。（压缩置换)<br>56位移位后的密钥作为进行下一轮的计算原密钥。</p>
+<h2 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h2><p>AES<br>AES的本质:<br>替换，移位，异或每一步都是可逆的<br>关于AES的事实<br>1．分组大小位128位(较大的分组长度不是AES算法官方标准)2．密钥长度可为128，192及256位<br>3．运算的轮次根据密钥的不同，从10轮至14轮不等4．每轮包含四个函数:<br>1.Bytesub(非线性层)2. ShiftRow(线性混合层)3. MixColumn(非线性层)4. AddRoundkey(密钥添加层)</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/01/07/hello-world/" data-id="cldlgk54900020ou704h47scq" data-title="Hello World" class="article-share-link">Compartir</a>
+      <a data-url="http://example.com/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/" data-id="cldv55z9h000h0wu737p67suf" data-title="密码学" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-音频隐写" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T08:48:34.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/07/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/">音频隐写</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>音频隐写泛指在CTF 竞赛中以音频文件为隐写载体的题型，这类题目我们通常可以得到一个可播放的音频文件。隐藏的信息通常和音乐的内容无关，一般会把信息隐藏到音频文件的某种波形中或者隐藏到音频文件的某个数据块中。<br>音频隐写的出题方向:<br>(1）把信息隐藏到音频文件的波形图或者频谱图中。<br>(2）把信息隐藏到音频文件的某个数据块中。<br>音频的波形图<br>波形图，也叫振幅图，是音频的振幅（或能量〉这个维度的图形表达。对于波形图，横坐标是时间;纵坐标是幅值，纵坐标一般有两种表示方式，一种方式是用dB来表示（就是分贝，你可以留意后面的截图)，另一种方式是用[-1，1]这个范围来表示，这种方式并不关心具体的能量值，只关心振幅的趋势,所以用归一化的思路固定一个变化的范围就可以了。<br><img src="/images/113.png"><br>通常来说，波形方向的题，在观察到异常后，使用相关软件（Audacity，Adobe Audition 等)观察波形规律，将波形进一步转化为01字符串等，从而提取转化出最终的 flag。<br><img src="/images/114.png"><br>音频中的频谱隐写是将字符串隐藏在频谱中，此类音频通常会有一个较明显的特征，听起来是一段杂音或者比较刺耳。<br><img src="/images/115.png"></p>
+<h2 id="数据块隐写"><a href="#数据块隐写" class="headerlink" title="数据块隐写"></a>数据块隐写</h2><p>  音频文件可以和其他文件一样，在比特流中隐写信息，常用的工具是MP3Stego。<br> MP3Stego是著名的音频数据隐写工具，支持常见的压缩音频文件格式如mp3的数据嵌入，它采用的是一种特殊的量化方法，并且将数据隐藏在MP3文件的奇偶校验块中，所以我们称这种隐写方式为:数据块隐写。<br><img src="/images/116.png"></p>
+<h2 id="视频隐写"><a href="#视频隐写" class="headerlink" title="视频隐写"></a>视频隐写</h2><p>视频隐写泛指在CTF 竞赛中以视频文件为隐写载体的题型，这类题目我们通常可以得到一个可播放的视频文件。隐藏的信息通常隐藏在视频中的某一帧中，或者隐藏在了视频文件中。<br>视频隐写的出题方向:<br>(1）把信息隐藏到视频中的某一帧图片中。<br>(2）把信息隐藏到视频文件的某个数据块中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/" data-id="cldv55z9k000q0wu7fmaa69gd" data-title="音频隐写" class="article-share-link">Teilen</a>
       
       
       
@@ -504,6 +508,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">weiter &raquo;</a>
+  </nav>
 
 </section>
         
@@ -519,7 +528,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archivos</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
     </div>
@@ -529,28 +538,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Posts recientes</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2023/02/01/SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%B8%B8%E8%A7%81%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F/">SQL注入的常见绕过方式</a>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
           </li>
         
           <li>
-            <a href="/2023/02/01/sqlmap%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/">sqlmap的一些使用</a>
+            <a href="/2023/02/08/XML/">XML</a>
           </li>
         
           <li>
-            <a href="/2023/02/01/sqlmap%E5%AE%89%E8%A3%85/">sqlmap安装</a>
+            <a href="/2023/02/07/pwn/">pwn</a>
           </li>
         
           <li>
-            <a href="/2023/02/01/web%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/">web安全入门</a>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
           </li>
         
           <li>
-            <a href="/2023/01/13/ctfshow-%E8%90%8C%E6%96%B0-web9/">ctfshow-萌新-web9</a>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
           </li>
         
       </ul>
@@ -567,7 +576,7 @@
     <div id="footer-info" class="inner">
       
       &copy; 2023 殆尽<br>
-      Construido por <a href="https://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

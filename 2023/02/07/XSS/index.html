@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>XSS | 北暮南辞</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="JavaScript基本语法分号分号用于分隔JavaSaipt语句。通常我们在每条可执行的语句结尾添加分号。使用分号的另一用处是在一行中编写多条语句。(也可能看到不带有分号的案例。在JavaSaript中，用分号来结束语句是可选的。)注释JavaScript不会执行注释，我们可以添加注释来对JavaScript进行解释，或者提高代码的可读性。单行注释以T&#x2F;开头，多行注释以&#x2F;开始">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS">
+<meta property="og:url" content="http://example.com/2023/02/07/XSS/index.html">
+<meta property="og:site_name" content="北暮南辞">
+<meta property="og:description" content="JavaScript基本语法分号分号用于分隔JavaSaipt语句。通常我们在每条可执行的语句结尾添加分号。使用分号的另一用处是在一行中编写多条语句。(也可能看到不带有分号的案例。在JavaSaript中，用分号来结束语句是可选的。)注释JavaScript不会执行注释，我们可以添加注释来对JavaScript进行解释，或者提高代码的可读性。单行注释以T&#x2F;开头，多行注释以&#x2F;开始">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/85.png">
+<meta property="og:image" content="http://example.com/images/86.png">
+<meta property="og:image" content="http://example.com/images/87.png">
+<meta property="og:image" content="http://example.com/images/88.png">
+<meta property="og:image" content="http://example.com/images/89.png">
+<meta property="og:image" content="http://example.com/images/90.png">
+<meta property="og:image" content="http://example.com/images/91.png">
+<meta property="og:image" content="http://example.com/images/92.png">
+<meta property="og:image" content="http://example.com/images/93.png">
+<meta property="og:image" content="http://example.com/images/94.png">
+<meta property="og:image" content="http://example.com/images/95.png">
+<meta property="og:image" content="http://example.com/images/96.png">
+<meta property="og:image" content="http://example.com/images/97.png">
+<meta property="article:published_time" content="2023-02-07T07:36:18.000Z">
+<meta property="article:modified_time" content="2023-02-07T08:06:05.930Z">
+<meta property="article:author" content="殆尽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/85.png">
+  
+    <link rel="alternate" href="/atom.xml" title="北暮南辞" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北暮南辞</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ctf小萌新一枚</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-XSS" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/XSS/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T07:36:18.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      XSS
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>JavaScript基本语法<br><img src="/images/85.png"><br>分号<br>分号用于分隔JavaSaipt语句。通常我们在每条可执行的语句结尾添加分号。使用分号的另一用处是在一行中编写多条语句。<br>(也可能看到不带有分号的案例。在JavaSaript中，用分号来结束语句是可选的。)<br><img src="/images/86.png"><br><img src="/images/87.png"><br>注释<br>JavaScript不会执行注释，我们可以添加注释来对JavaScript进行解释，或者提高代码的可读性。单行注释以T&#x2F;开头，多行注释以&#x2F;<em>开始，以</em>&#x2F;结尾。注释也可用于调试时阻止代码运行。<br>变量<br>在JavaScript中创建变量通常称为“声明”变量，我们使用var关键词来声明变量,如需像变量赋值，使用等号，向变量分配文本值时，应该用双引号或单引号包围这个值,<br>向变量赋的值是数值时，不要使用引号。一条语句可以声明多个变量横跨多行，使用逗号<br>分隔变量。变量大小写敏感。</p>
+<h2 id="JS函数"><a href="#JS函数" class="headerlink" title="JS函数"></a>JS函数</h2><p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块。<br>在调用函数时，可以向其传递值，这些值被称为参数。这些参数可以在函数中使用。可以发送任意多的参数，由逗号分隔，当声明函数时，需要把参数作为变量来声明，变量和参数必须以一致的顺序出现，第一个变量就是第一个被传递的参数的给定的值，以此类推。<br>如果希望函数将值返回调用它的地方，通过使用returm语句就可以实现，在使用retum语句时，函数会停止执行，并返回指定的值。<br><img src="/images/88.png"></p>
+<h2 id="break和continue语句"><a href="#break和continue语句" class="headerlink" title="break和continue语句"></a>break和continue语句</h2><p>break语句可用于跳出循环，break语句跳出循环后，会继续执行该循环之后的代码（如果有的话)<br>continue语句中断循环中的迭代，如果出现了指定的条件，然后继续循环中的下一个迭代。continue语句（带有或不带标签引用)只能用在循环中。<br>break语句(不带标签引用)，只能用在循环或switch 中。break语句可通过标签引用，用于跳出任何JavaScript代码块:</p>
+<p>操作HTML元素<br>JavaScript通常用于操作HTML元素。如需从JavaScript访问某个HTML元素，使用”id”属性来标识HTML元素，用document.getElementByld(id)方法。</p>
+<p>改变HTML内容<br>要将id&#x3D;”ab”的HTML元素内容替换(innerHTML)为”Hellow World”，使用document.getElementByld(“ab”).innerHTML&#x3D;”Hellow World”改变其内容。</p>
+<p>写入HTML文档输出<br>JavaScript如需将元素写入HTML文档输出中，用document.write()。<br>例如:要将<P>元素写到HTML文档输出中:用document.write(“<p>内容</p>“)<br>注意:document.write()仅仅向文档输出内容，如果在文档已完成加载后执行document.write，整个HTML页面将被覆盖。</p>
+<p>写入HTML文档输出<br>JavaScript如需将元素写入HTML文档输出中，用document.write()。<br>例如:要将<P>元素写到HTML文档输出中:用document.write(“<p>内容</p>“)<br>注意:document.write()仅仅向文档输出内容，如果在文档已完成加载后执行document.write，整个HTML页面将被覆盖。</p>
+<p>JS消息框<br>JS中可以创建三种消息框:警告框、确认框、提示框<br>警告框<br>警告框经常用于确保用户可以得到某些信息。当警告框出现后，用户需要点击确定按钮才能继续进行操作。语法: alert(“文本”)<br>确认框<br>确认框用于使用户可以验证或者接受某些信息，当确认框出现后，用户需要点击确定或者取消按钮才能继续进行操作。如果用户点击确认，那么返回值为true，如果用户点击取消，那么返回值为false。语法: confirm(“文本”)<br><img src="/images/89.png"><br>提示框<br>提示框经常用于提示用户在进入页面前输入某个值，当提示框出现后，用户需要输入某个值，然后点击确认或取消按钮才能继续操纵。如果用户点击确认，那么返回值为输入的值，如果用户点击取消，那么返回值为null。语法: prompt(“文本” ,”默认值”)<br><img src="/images/90.png"></p>
+<h2 id="XSS基本原理"><a href="#XSS基本原理" class="headerlink" title="XSS基本原理"></a>XSS基本原理</h2><p>xss攻击，通常是指恶意攻击者往web页面里插入恶意的html代码，当用户浏览该页之时，嵌入Web里面的html代码会被执行，从而达到恶意攻击用户的目的。<br>在HTML中常用到字符实体，对常用到的字符实体没有进行转译，导致完整的标签出现，在可输入的文本框等某些区域内输入特定的某些标签导致代码被恶意篡改<br><img src="/images/91.png"></p>
+<h2 id="存储型XSS漏洞"><a href="#存储型XSS漏洞" class="headerlink" title="存储型XSS漏洞"></a>存储型XSS漏洞</h2><p>1.有数据提交点以及回显点<br>存储型xss由于Payload存储在服务器上，回显点有各种形式，需仔细确认。如下图，首先我们先请求左下路径，请求后如右下图，发现回显点<br>2.其中处理过程无字符转义或过滤处理<br>如下，使用危险字符测试后发现后端并没有进行转义处理，同时可以看到，之前我们第一次的测试内容仍旧存在。<br><img src="/images/92.png"><br>什么是DOM型XSS<br>简单的说，通过修改页面的DOM节点形成的XSS，就是DOM based xsS。<br>这里就要提及lS的极为重要的一个功能了，就是可以修改DOM节点。那么如果我们将反射型xss的Payload用于修改DOM节点，那么可以修改页面任意元素，多用于钓鱼。</p>
+<p>DOM对象介绍<br>文档对象模型(Document Object Model)，即大名鼎鼎的DOM。<br>DOM可以被认为是一种通过将页面元素以对象的树形方式表现，以便由Javascript组织处理的实现方法。<br><img src="/images/93.png"><br>XSS平台介绍<br>XSs的所有行为都在目标浏览器上，那么如何从目标哪里获取数据呢?<br>一个简单的思路是使用xss将我们所需要的数据拼接在特定主机的URL后面并请求，特定主机会记录该请求，于是便可获取。<br>由上述思路再进行扩展，如果目标所执行的Payload可以持续与我们的主机进行交互，那么我们可以随时执行我们需要的指令，相当于Shell。<br>xSs平台提供了这个功能，建立起目标和攻击者之间的连接。<br>XSS平台搭建<br><a target="_blank" rel="noopener" href="https://github.com/78778443/xssplatform">https://github.com/78778443/xssplatform</a><br>漏洞介绍<br>在web程序中，Web引用有时需要调用一些执行系统命令的函数，如PHP中的system、exec,shell_exec、passthru、popen、proc_popen等，当用户或者攻击者能控制这些参数时，就可以将恶意的系统命令拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞。<br><?php
+$cmd = $_GET[ cmd];system( $cmd ) ;
+?><br><img src="/images/94.png"><br>漏洞分类<br>针对于漏洞产生的条件、以及应用程序的不同，将命令执行漏洞分为此三类。<br>1.代码层过滤不严:许多的程序在开发时，开发人员对输入过滤不严格，导致漏洞的产生。<br>2.系统的漏洞造成的命令注入<br>bash破壳漏洞<br>3.系统的漏洞造成的命令注入<br>bash破壳漏洞<br>调用第三方组件存在代码执行漏洞<br>如wordpress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2&#x2F;ElasticsearchChroovy等)ThinkPHP命令执行<br><img src="/images/95.png"><br><img src="/images/96.png"><br><img src="/images/97.png"><br>漏洞修复方式:<br>1.禁用函数<br>尽量少用执行命令的函数或者<br>直接禁用<br>2.参数引用<br>参数值尽量使用引号包括<br>3.动态函数<br>在使用动态函数之前,确保使<br>用的函效是指定的函数之一<br>4.参数过滤<br>在进入执行命令的函数&#x2F;方法<br>之前,对参数进行过滤,对敏感学符进行转义</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/XSS/" data-id="cldv55z9d00040wu77wfi6gtp" data-title="XSS" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/07/%E5%BC%B1%E5%8F%A3%E4%BB%A4%E7%9A%84%E6%8E%A2%E6%B5%8B%E4%B8%8E%E6%B5%8B%E8%AF%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          弱口令的探测与测试
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">文件上传</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/08/XML/">XML</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/pwn/">pwn</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 殆尽<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

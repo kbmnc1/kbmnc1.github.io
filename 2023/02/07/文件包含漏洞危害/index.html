@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>文件包含漏洞危害 | 北暮南辞</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="文件包含漏洞危害危害：1 配合文件上传漏洞Getshell(图片马)2 可执行任意脚本代码3 网站源码文件及配置文件泄露4  远程包含GetShell5 控制整个网站甚至服务器 文件包含漏洞防御(1）不要直接导入用户输入的内容(本地与远程文件包含漏洞相同）做好过滤(2）路径限制:限制被包含的文件只能在某一目录内，并且一定要禁止目录跳转;开启open_basedir 函数，只允许用户访问web目录，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件包含漏洞危害">
+<meta property="og:url" content="http://example.com/2023/02/07/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3/index.html">
+<meta property="og:site_name" content="北暮南辞">
+<meta property="og:description" content="文件包含漏洞危害危害：1 配合文件上传漏洞Getshell(图片马)2 可执行任意脚本代码3 网站源码文件及配置文件泄露4  远程包含GetShell5 控制整个网站甚至服务器 文件包含漏洞防御(1）不要直接导入用户输入的内容(本地与远程文件包含漏洞相同）做好过滤(2）路径限制:限制被包含的文件只能在某一目录内，并且一定要禁止目录跳转;开启open_basedir 函数，只允许用户访问web目录，">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/45.png">
+<meta property="og:image" content="http://example.com/images/46.png">
+<meta property="og:image" content="http://example.com/images/47.png">
+<meta property="og:image" content="http://example.com/images/48.png">
+<meta property="og:image" content="http://example.com/images/49.png">
+<meta property="og:image" content="http://example.com/images/50.png">
+<meta property="og:image" content="http://example.com/images/51.png">
+<meta property="og:image" content="http://example.com/images/52.png">
+<meta property="og:image" content="http://example.com/images/53.png">
+<meta property="og:image" content="http://example.com/images/54.png">
+<meta property="og:image" content="http://example.com/images/55.png">
+<meta property="og:image" content="http://example.com/images/56.png">
+<meta property="og:image" content="http://example.com/images/57.png">
+<meta property="og:image" content="http://example.com/images/58.png">
+<meta property="og:image" content="http://example.com/images/59.png">
+<meta property="og:image" content="http://example.com/images/60.png">
+<meta property="og:image" content="http://example.com/images/61.png">
+<meta property="og:image" content="http://example.com/images/62.png">
+<meta property="og:image" content="http://example.com/images/63.png">
+<meta property="og:image" content="http://example.com/images/64.png">
+<meta property="og:image" content="http://example.com/images/65.png">
+<meta property="og:image" content="http://example.com/images/66.png">
+<meta property="og:image" content="http://example.com/images/67.png">
+<meta property="og:image" content="http://example.com/images/68.png">
+<meta property="og:image" content="http://example.com/images/69.png">
+<meta property="og:image" content="http://example.com/images/70.png">
+<meta property="article:published_time" content="2023-02-07T06:37:54.000Z">
+<meta property="article:modified_time" content="2023-02-07T07:04:40.776Z">
+<meta property="article:author" content="殆尽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/45.png">
+  
+    <link rel="alternate" href="/atom.xml" title="北暮南辞" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北暮南辞</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ctf小萌新一枚</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-文件包含漏洞危害" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T06:37:54.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      文件包含漏洞危害
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="文件包含漏洞危害"><a href="#文件包含漏洞危害" class="headerlink" title="文件包含漏洞危害"></a>文件包含漏洞危害</h2><p>危害：<br>1 配合文件上传漏洞Getshell(图片马)<br>2 可执行任意脚本代码<br>3 网站源码文件及配置文件泄露<br>4  远程包含GetShell<br>5 控制整个网站甚至服务器</p>
+<h2 id="文件包含漏洞防御"><a href="#文件包含漏洞防御" class="headerlink" title="文件包含漏洞防御"></a>文件包含漏洞防御</h2><p>(1）不要直接导入用户输入的内容(本地与远程文件包含漏洞相同）做好过滤<br>(2）路径限制:限制被包含的文件只能在某一目录内，并且一定要禁止目录跳转;开启open_basedir 函数，只允许用户访问web目录，可以防止包含其他目录的文件。<br>(3）做好文件的权限管理，等。</p>
+<h2 id="File-x2F-x2F-伪协议"><a href="#File-x2F-x2F-伪协议" class="headerlink" title="File:&#x2F;&#x2F;伪协议"></a>File:&#x2F;&#x2F;伪协议</h2><p><img src="/images/45.png"></p>
+<h2 id="php-x2F-x2F-filter伪协议"><a href="#php-x2F-x2F-filter伪协议" class="headerlink" title="php :&#x2F;&#x2F;filter伪协议"></a>php :&#x2F;&#x2F;filter伪协议</h2><p><img src="/images/46.png"></p>
+<h2 id="php-x2F-x2F-input伪协议"><a href="#php-x2F-x2F-input伪协议" class="headerlink" title="php : &#x2F;&#x2F;input伪协议"></a>php : &#x2F;&#x2F;input伪协议</h2><p><img src="/images/47.png"></p>
+<h2 id="data-x2F-x2F-伪协议"><a href="#data-x2F-x2F-伪协议" class="headerlink" title="data:&#x2F;&#x2F;伪协议"></a>data:&#x2F;&#x2F;伪协议</h2><p><img src="/images/48.png"></p>
+<h2 id="http-x2F-x2F-伪协议"><a href="#http-x2F-x2F-伪协议" class="headerlink" title="http:&#x2F;&#x2F;伪协议"></a>http:&#x2F;&#x2F;伪协议</h2><p><img src="/images/49.png"><br><img src="/images/50.png"></p>
+<h2 id="phar-介绍"><a href="#phar-介绍" class="headerlink" title="phar 介绍"></a>phar 介绍</h2><p><img src="/images/51.png"></p>
+<h2 id="ftp-x2F-x2F-伪协议"><a href="#ftp-x2F-x2F-伪协议" class="headerlink" title="ftp:&#x2F;&#x2F;伪协议"></a>ftp:&#x2F;&#x2F;伪协议</h2><p><img src="/images/52.png"><br><img src="/images/53.png"></p>
+<h2 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h2><p>01 phar伪协议的利用方式phar:&#x2F;&#x2F;phpinfo.zip&#x2F;phpinfo.txt<br>注意事项:<br>(1）压缩包中文件的名字要和后面的一样<br>(2）压缩包在压缩后还可以改后缀名<br><img src="/images/54.png"><br><img src="/images/55.png"><br><img src="/images/56.png"><br><img src="/images/57.png"><br><img src="/images/58.png"><br><img src="/images/59.png"><br><img src="/images/60.png"><br><img src="/images/61.png"><br><img src="/images/62.png"><br><img src="/images/63.png"></p>
+<h2 id="包含-x2F-proc-x2F-self-x2F-environ文件getshell"><a href="#包含-x2F-proc-x2F-self-x2F-environ文件getshell" class="headerlink" title="包含&#x2F;proc&#x2F;self&#x2F;environ文件getshell"></a>包含&#x2F;proc&#x2F;self&#x2F;environ文件getshell</h2><p>1、利用条件<br>( 1) php以cgi方式运行，这样environ才会保持uA头<br>(2) environ文件存储位置已知，且environ文件可读<br>2、姿势<br>proc&#x2F;self&#x2F;environ中会保存user-agent头。如果在user-agent中插入php代码，则php代码会被写入到environ中。之后再包含它，即可。<br><img src="/images/64.png"><br><img src="/images/65.png"><br><img src="/images/66.png"><br><img src="/images/67.png"><br><img src="/images/68.png"><br><img src="/images/69.png"><br><img src="/images/70.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%8D%B1%E5%AE%B3/" data-id="cldv55z9i000k0wu736vrb3kh" data-title="文件包含漏洞危害" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/07/ctf%E9%9A%90%E5%86%99/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          ctf隐写
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">文件包含漏洞</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/08/XML/">XML</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/pwn/">pwn</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 殆尽<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>密码学 | 北暮南辞</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="栅栏密码栅栏加密的基本内容 栅栏密码就是把要加密的明文分成N个一组，然后把每组的第1个字符组合，每组第2个字符组合…每组的第N(最后一个分组可能不足N个)个字符组合最后把他们全部连接起来就是密文。栅栏密码技巧技巧计算整个字符串的长度,得到字符串长度的因数,一般情况下,栅栏密码的分栏数即为字符串长度的因数。特殊情况下下为WW型栅栏密码,任何小于字符串长度的值都有可能成为该密码的k ey，所以第一步永">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学">
+<meta property="og:url" content="http://example.com/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/index.html">
+<meta property="og:site_name" content="北暮南辞">
+<meta property="og:description" content="栅栏密码栅栏加密的基本内容 栅栏密码就是把要加密的明文分成N个一组，然后把每组的第1个字符组合，每组第2个字符组合…每组的第N(最后一个分组可能不足N个)个字符组合最后把他们全部连接起来就是密文。栅栏密码技巧技巧计算整个字符串的长度,得到字符串长度的因数,一般情况下,栅栏密码的分栏数即为字符串长度的因数。特殊情况下下为WW型栅栏密码,任何小于字符串长度的值都有可能成为该密码的k ey，所以第一步永">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/118.png">
+<meta property="og:image" content="http://example.com/images/119.png">
+<meta property="og:image" content="http://example.com/images/120.png">
+<meta property="og:image" content="http://example.com/images/121.png">
+<meta property="og:image" content="http://example.com/images/122.png">
+<meta property="og:image" content="http://example.com/images/123.png">
+<meta property="og:image" content="http://example.com/images/124.png">
+<meta property="og:image" content="http://example.com/images/125.png">
+<meta property="og:image" content="http://example.com/images/126.png">
+<meta property="og:image" content="http://example.com/images/127.png">
+<meta property="og:image" content="http://example.com/images/128.png">
+<meta property="og:image" content="http://example.com/images/129.png">
+<meta property="og:image" content="http://example.com/images/130.png">
+<meta property="og:image" content="http://example.com/images/131.png">
+<meta property="og:image" content="http://example.com/images/132.png">
+<meta property="og:image" content="http://example.com/images/133.png">
+<meta property="og:image" content="http://example.com/images/134.png">
+<meta property="og:image" content="http://example.com/images/135.png">
+<meta property="og:image" content="http://example.com/images/136.png">
+<meta property="og:image" content="http://example.com/images/137.png">
+<meta property="og:image" content="http://example.com/images/138.png">
+<meta property="og:image" content="http://example.com/images/139.png">
+<meta property="og:image" content="http://example.com/images/140.png">
+<meta property="og:image" content="http://example.com/images/141.png">
+<meta property="og:image" content="http://example.com/images/142.png">
+<meta property="og:image" content="http://example.com/images/143.png">
+<meta property="og:image" content="http://example.com/images/147.png">
+<meta property="og:image" content="http://example.com/images/148.png">
+<meta property="og:image" content="http://example.com/images/149.png">
+<meta property="og:image" content="http://example.com/images/150.png">
+<meta property="og:image" content="http://example.com/images/151.png">
+<meta property="article:published_time" content="2023-02-07T08:59:02.000Z">
+<meta property="article:modified_time" content="2023-02-07T10:10:01.663Z">
+<meta property="article:author" content="殆尽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/118.png">
+  
+    <link rel="alternate" href="/atom.xml" title="北暮南辞" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北暮南辞</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ctf小萌新一枚</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-密码学" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T08:59:02.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      密码学
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a>栅栏密码</h2><p>栅栏加密的基本内容<br> 栅栏密码就是把要加密的明文分成N个一组，然后把每组的第1个字符组合，每组第2个字符组合…每组的第N(最后一个分组可能不足N个)个字符组合最后把他们全部连接起来就是密文。<br><img src="/images/118.png"><br>栅栏密码技巧<br>技巧<br>计算整个字符串的长度,得到字符串长度的因数,一般情况下,栅栏密码的分栏数即为字符串长度的因数。<br>特殊情况下下为WW型栅栏密码,任何小于字符串长度的值都有可能成为该密码的k ey，所以第一步永远是确定ke y .<br>www型 顾名思义，将字符串按照www的形状排列，即为答案</p>
+<h2 id="曲路密码-Curve-Cipher"><a href="#曲路密码-Curve-Cipher" class="headerlink" title="曲路密码(Curve Cipher)"></a>曲路密码(Curve Cipher)</h2><p>—种换位密码，需要事先双方约定密钥(也就是曲路路径)。<br>明文:The quick brown fox jumps over the lazy dog填入5行7列表(事先约定填充的行列数)<br><img src="/images/119.png"><br>—种换位密码，需要事先双方约定密钥(也就是曲路路径)。<br>明文:The quick brown fox jumps over the lazy dog填入5行7列表(事先约定填充的行列数)<br>加密的回路线(事先搞清红线方向）<br>按照红线的方向即<br><img src="/images/120.png"><br>平行读取即可<br>密文:gesfc inpho dtmwu qoury zejre hbxva lookT</p>
+<h2 id="列位移密码-Columnar-Transposition-Cipher-云演-让攻防更简单"><a href="#列位移密码-Columnar-Transposition-Cipher-云演-让攻防更简单" class="headerlink" title="列位移密码(Columnar Transposition Cipher)云演|让攻防更简单"></a>列位移密码(Columnar Transposition Cipher)云演|让攻防更简单</h2><p>列移位密码是一种比较简单，易于实现的换位密码，通过一个简单的规则将明文打乱混合成密文<br>例子:<br>明文The quick brown fox jumps over the lazy dog密钥how are u<br>填入5行7列表(事先约定填充的行列数，如果明文不能填充完表格可以约定使用某个字母进行填充)<br>按how are u在字母表中的出现的先后顺序进行编号，我们就有a为1,e为2，的2N9优, 7乃3,u为6，w为7，所以先写出a列，其次e列，以此类推<br>密文:qoury inpho Tkool hbxva uwmtd cfseg erjez<br><img src="/images/121.png"><br>敲击码(Tap code)<br>敲击码是一种以非常简单的方式对文本信息进行编码的方法。因该编码对信息通过使用一系列的点击声音来编码而命名，敲击码是基于5×5方格波利比奥斯方阵来实现的，不同点是是用K字母被整合到C中。<br><img src="/images/122.png"></p>
+<h2 id="xxencode"><a href="#xxencode" class="headerlink" title="xxencode"></a>xxencode</h2><p>XXEncode是一种二进制到文字的编码。类似Base64编码方法。它也是定义了用可打印字符表示二进制文字一种方法，不是一种新的编码集合。XXEncode将输入文本以每三个字节为单位进行编码，如果最后剩下的资料少于三个字节，不够的部份用零补齐。三个字节共有24个Bit，以6-bit为单位分为4个组，每个组以十进制来表示所出现的字节的数值。这个数值只会落在0到63之间。它64可打印字符固定字符范围及顺序!包括大小写字母、数字以及+-字符。它较UUEncode编码优点在于它64字符是常见字符，没有任何特殊字符。它所选择的可打印字符是:+-0123456789ABCDEFGHI JKLMNOPQRSTUVwXYZabcdefghijkImnopqrstuvwxyz，一共64个字符<br><img src="/images/123.png"></p>
+<h2 id="UUencode"><a href="#UUencode" class="headerlink" title="UUencode"></a>UUencode</h2><p>编码过程<br>Uuencode将输入资料以每三个字节为单位进行编码，如此重复进行<br>如果最后剩下的资料少于三个字节，不够的部份用零补齐。这三个字节共有24个Bit，以6-bit为单位分为4个群组，每个群组以十进制来表示所出现的数值只会落在0到63之间。将每个数加上32，所产生的结果<br>刚好落在ASCII字符集中可打印字符(32-空白…95-底线）的范围之中。<br>每60个编码输出（相当于45个输入字节）将输出为独立的一行，每行的开头会加上长度字符，除了最后一行之外，长度字符都应该是’M’这个ASCII字符(77&#x3D;32+45），最后一行的长度字符为32+剩下的字节数目这个ASCIl字符。如果是一个0字节那它应该被转换为0×60而不是0×20，因为（前引用’&#96;’)优于0×20（空格’‘)。<br>编码特点<br>特点一:共有64字符，也是一组6位。类似base64<br>特点二:它定义64字符，不用写映射表，是通过加32转换到可打印字符范围中。比起base64，更为简单!<br><img src="/images/124.png"><br><img src="/images/125.png"></p>
+<h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>根据不同情况产生不同的URL编码:<br>一、针对ASCI字符<br>采用%+16进制的ASCII码生成对应的编码。例如: a b c进行URL编码之后为%61%62%63<br>二、针对中文字符<br>1、作为网址路径的编码，用的是utf-8编码<br>2、当作为查询字符串时，用的是操作系统的默认编码3、GET和POST方法的编码，用的是网页指定的编码<br>4、Ajax调用的URL包含汉字，IE总是采用操作系统指定的编码，而Firefox总是采用utf-8编码。</p>
+<h2 id="摩尔斯电码-Morse"><a href="#摩尔斯电码-Morse" class="headerlink" title="摩尔斯电码(Morse)"></a>摩尔斯电码(Morse)</h2><p>电报通信的语言是由电码符号组成的。电报通信最早是由美国的摩尔斯在1844年发明的，所以电码符号也被叫做摩尔斯电码（(Morse code)。<br>电码符号由两种基本信号和不同的间隔时间组成:短促的点信号“.”读“的”(Di）﹔保持一定时间的长信号“—”，读“答一”(Da）。<br><img src="/images/126.png"><br><img src="/images/127.png"></p>
+<h2 id="Base编码"><a href="#Base编码" class="headerlink" title="Base编码"></a>Base编码</h2><p>Base编码的常见种类<br> base16:16进制（包含数字0-9，大写字母A-F)<br> base32:在base16的基础上增添了大写字母G-Z.<br> base64:在base32的基础上增加小写字母a-z<br>·注意:当编码位数不足时，会使用“&#x3D;”填充<br><img src="/images/128.png"></p>
+<h2 id="Base编码-1"><a href="#Base编码-1" class="headerlink" title="Base编码"></a>Base编码</h2><p>. base58: 将base64的编码除去可能产生歧义的字符，例如数字0和大写字母O，大写字母I和小写字母L，以及影响双击选择的字符&#x2F;和+，一共是58个字符，由于不是2的整数次幂，所以采用辗转相除法进行转换将数字不断对58取余，直到商为0，将每一步的余数都筐表(DaseO4乐云上R文字符之后的表)，如果待转化的数字前面有0，直接附加编码1来代表，有多少个就加多少个(在编码表中1代表0O）解码时需要将长度传入<br>. base36:包含O~9的数字，加上所有26个字母，不区分大小写，不包含任何标点，所有的字母要不全大写，要不全小写<br>. base62:26个字母的大小写再加上O-9，一共62个字符.base62编码在短地址服务中用的比较多<br>. Base91、base92、base85</p>
+<h2 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a>凯撒密码</h2><p>在密码学中，恺撒密码或称恺撒加密、恺撒变换、变换加密，是一种最简单且最广为人知的加密技术。它是一种替换加密的技术，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例如，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推。这个加密方法是以罗马共和时期恺撒的名字命名的<br>根据偏移量的不同，还存在若干特定的恺撒密码名称:<br>偏移量为10: Avocat(A→K)<br>偏移量为13:ROT13<br>偏移量为-5: Cassis (K 6)偏移量为-6: Cassette (K 7)<br>凯撒密码的替换方法是通过排列明文和密文字母表，密文字母表示通过将明文字母表向左或向右移动一个固定数目的位置。例如，当偏移量是左移3的时候（解密时的密钥就是3）:<br>明文字母表:ABCDEFGHI JKLMNOPQRSTUVWXYZ ;<br>密文字母表:DEFGHIJKLMNOPQRSTUVWXYZABC。<br>使用时，加密者查找明文字母表中需要加密的消息中的每一个字母所在位置，并且写下密文字母表中对应的字母。需要解密的人则根据事先已知的密钥反过来操作，得到原来的明文。例如:<br>明文: THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG ;密文:WKH TXLFN EURZQ IRA MXPSV RYHU WKH ODCB GRJ。<br>恺撒密码的加密、解密方法还能够通过同余的数学方法进行计算。首先将字母用数字代替，A&#x3D;O，B&#x3D;1，…，Z&#x3D;25。此时偏移量为n的加密方法即为:<br>E.(z)&#x3D; (z +n) mod 26.<br>解密就是:<br>D.(z)&#x3D;(z -n) mod 26.</p>
+<h2 id="培根密码"><a href="#培根密码" class="headerlink" title="培根密码"></a>培根密码</h2><p>培根密码(Baconian Cipher)是一种替换密码，每个明文字母被一个由5字符组成的序列替换。<br>原理:最初的加密方式就是由‘A’和‘B’组成序列替换明文，比如字母‘D’替换成“aaabb”。<br><img src="/images/129.png"></p>
+<h2 id="猪圈密码"><a href="#猪圈密码" class="headerlink" title="猪圈密码"></a>猪圈密码</h2><p><img src="/images/130.png"></p>
+<h2 id="日历密码"><a href="#日历密码" class="headerlink" title="日历密码"></a>日历密码</h2><p>原则:(1)1—26代表a—z26个英文字母;(2)M,T1,W,T2,F,S1,S2分别代表周一到周日七天（英文首字母代替，1，2为了有别，也人为增加密度) ;(3)密钥即密码表以2020年7月份的日历为密码表，我们来加密这个单词:<br>dictionary<br>第一步，用数字代替明文中的字母，即D I T l 0 N A R 4 9 3 20 9 15 14 1 18第二步，写密文。<br>方法:例如单词首字母D用4代替，则在日历中找到4号，发现是本月第一个星期六，所以用S11表示;又如第七个字母N用数字14代表，找到14号，发现是本月第二个星期二，用T12代表。如此类推，得到密文如下:<br>S11 T22 F1 M3 T22 w3 T12 W1 S13<br>此类密码的解法如下:<br>(1）首先要知道密钥，即密码表;<br>(2）其次分解密码中的星期i，即变成星期+数字的形式<br>(3）去寻找对应的是第几个出现的星期i，对应日期;<br>(4）对应字母,练成单词，短语或句子</p>
+<h2 id="普莱菲儿密码"><a href="#普莱菲儿密码" class="headerlink" title="普莱菲儿密码"></a>普莱菲儿密码</h2><p>具体编写密码的步骤有3步，1.编写密码表⒉.整理明文3.编写密文<br>(1)编写密码表<br>德文中也是讲i和j看做一个子母，法乂月公日足NA日”，eAn母，英文则一般会省略去<br>密码表可以加入密匙，如密匙crazyadog，省略去z，重复字母（如a）只保留第一个，则有:craydog<br>表中其他格子里分别按顺序填入ABC…XY,但密匙中有的字母要去掉。（当然，你也可以乱填，只要你能记得住就行…)<br>原则:提取明文的不重复字母，例如明文为culture，即CULTRE.编写密码表，即将剩余的25个字母出去已有字母依次写下（同样是五乘五方格)<br>整理密钥字母时，如果出现z，则需要去除，因为在英文里z的使用频率最低。<br><img src="/images/131.png"><br>(2)整理明文。<br>原则:两个字母一组，若同一组字母中两字母相同，在两字母中加入X，再重新分组，直到不再出现相同字母。或者最后只余下一个字母，也加一个字母X作补充，使之成对。如:communist &#x3D;&#x3D;&#x3D;》co mm un is t &#x3D;&#x3D;&#x3D;》co mxmu ntst<br>又如: prettys &#x3D;&#x3D;&#x3D;》pr et ty sx (t t不再同一组中，无需家X)(3）写密文。<br>规则<br>(1）如果两个字母在同一行，则要用它右邻的字母替换，如果已在最右边，则用该行最左边的替换，如明文“ce”，按照上表，应替换为“eg”;<br>(2）如果两个字母在同一列，则要用它下边的字母替换，如果已在最下边，则用该行最上边的替换，如明文“oa”，按照上表，应替换为“pm” ;<br>(3）如果两个字母在不同的行和列，则应在密码表中找到两个字母使四个字母组成一个矩形，明文占据两个顶点，需用另外两个顶点的字母替换，如明文为“hx”，可以替换为“vj”或“jv”。<br>现在将一明文加密<br>明文:pishoupideweinasi<br>密匙:culture&#x3D;&#x3D;&#x3D;》即用步骤1中密码表密文分为两两一组,结尾不够加X<br>密文: pi, sh, ou, pi , de, we,in,as， ix<br>按照上述密码表加密，再将密文分为5个一组:得密文:jogvl njofa bsohv ewj</p>
+<h2 id="波利比奥斯方阵"><a href="#波利比奥斯方阵" class="headerlink" title="波利比奥斯方阵"></a>波利比奥斯方阵</h2><p>棋盘密码(Checkerboard Cipher)是使用一个波利比奥斯方阵和两个密钥作为密阵的替换密码，通常在波利比奥斯方阵中J字母往往被包含在l字母中<br>在一些其他利用方式[“衍生”密码]，数字坐标可以代替为字母密钥，其中的字母棋盘顺序可以打乱<br><img src="/images/132.png"></p>
+<h2 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h2><p>维吉尼亚密码是单表替换密码（凯撒加密）的发展。众所周知，单表替换密码都是可以使用词频分析破解的，这是由于语言的使用上有常用性。维吉尼亚密码就是为了避免这种问题而诞生，采取了循环密钥的方式，将明文与表进行对照。<br>维吉尼亚密码自动解密网站: https: &#x2F; &#x2F;<a target="_blank" rel="noopener" href="http://www.guballa.de/vigenere-solver">www.guballa.de/vigenere-solver</a><br>1.根据已知内容进行k的长度猜解（动态规划思想）<br>2.根据对应的字符表得到key<br>3.用来进行解密</p>
+<h2 id="希尔密码"><a href="#希尔密码" class="headerlink" title="希尔密码"></a>希尔密码</h2><p>希尔密码(Hill Cipher)是基于线性代数多重代换<br>密码，由Lester S. Hill在1929年发明。<br>原理:<br>字母转换成26进制数字:A&#x3D;O，B&#x3D;1，C&#x3D;2…Z&#x3D;25一串字母当成n维向量，跟一个n×n的矩阵相乘再将得出的结果MOD26<br><img src="/images/133.png"></p>
+<h2 id="仿射密码"><a href="#仿射密码" class="headerlink" title="仿射密码"></a>仿射密码</h2><p>仿射密码是一种表单代换密码，字母表的每个字母相应的值使用一个简单的数学函数对应一个数值,再把对应数值转换成字母。<br><img src="/images/134.png"><br>加密函数:E(x)&#x3D; (ax + b)(mod m)，其中a与m互质，m是编码系统中字母的个数（通常都是26）。<br>解密函数:D(x) &#x3D; a^(-1)*(x- b)(mod m)，其中a^(-1)是a在Zm群的乘法逆元<br>以E(x)&#x3D;(5x+8) mod 26函数为例子进行介绍，加密字符为AFFINECIPHER,这里我们直接采用字母表26个字母作为编码系统<br><img src="/images/135.png"></p>
+<h2 id="RSA简介"><a href="#RSA简介" class="headerlink" title="RSA简介"></a>RSA简介</h2><p>·在rsa中常用的参数为:N,E,d,p,q,C,m,dp,dq各参数所代表的含义<br>&lt;1&gt;参数N代表模数，在RSA中进行模运算，N&#x3D;p<em>q<br>&lt;2&gt;参数E，d分别代表公钥指数和私钥指数<br>&lt;3&gt; p,q分别为模数N分解后得到的值<br>&lt;4&gt; C,m分别代表密文和明文<br>&lt;5&gt; dp&#x3D;d mod (p-1)dq&#x3D;d mod (q-1)这两个参数是在d的基础上的延申·各参数之间的关系:<br>. &lt;1&gt; c&#x3D;m^e (mod N)m&#x3D;c^d (mod N)<br>. &lt;2&gt; phi&#x3D;(p-1)</em>(q-1) e*d&#x3D;1 (mod phi)这里很重要的一点是e,d的取值范围,1&lt;e&lt;phi,1&lt;d&lt;phi,同时gcd(phi,e)&#x3D;gcd(phi,d)&#x3D;1<br>·这也是RSA解密的基础运算，就是拿到公钥指数E和模数N，将模数N分解为两个质因数，求得私钥指数d，从而利用加密过程或解密过程将最终的内容拿到<br>分解N的手段一<br>当N的长度较小时，可以采用爆破的方式<br>分解N的手段二<br>当N满足因数p ,q相差较小或者相差特别大时，可以采<br>用离线工具yafu<br>分解N的手段三<br>当N的位数过大时，且不满足二中的条件，需要用到在线网站f a c t o r d b o该网站类似于彩虹表，将已被人分解的大数结果存储起来，只需要输入查询即可。<br><img src="/images/136.png"><br><img src="/images/137.png"></p>
+<h2 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h2><p>欧几里得算法(辗转相除法):<br>用来计算最大公约数和最小公倍数<br>两个数p, q最大公约数gcd(p, q)和最小公倍数egcd(p, q)之间的关系:gcd(p,q)&#x3D;(p*q) &#x2F;egcd (p, q)定理: gcd (a, b) &#x3D; gcd(b, a mod b)<br>证明: a可以表示成a &#x3D; kb + r，则r &#x3D; a mod b假设d是a, b的一个公约数，则有<br>d|a, dlb，而r &#x3D; a - kb，因此d|r因此d是(b, a mod b)的公约数<br>假设d 是(b, a mod b)的公约数，则<br>d | b , d lr ，但是a &#x3D; kb +r因此d也是(a,b)的公约数<br>因此(a,b)和(b, a mod b)的公约数是一样的，其最大公约数也必然相等，得证。<br><img src="/images/138.png"></p>
+<h2 id="Coopersmith-attack"><a href="#Coopersmith-attack" class="headerlink" title="Coopersmith attack"></a>Coopersmith attack</h2><p> 已知高位攻击<br>   三种情况:<br>&lt;1&gt;已知素因数p的高位<br>&lt;2&gt;已知明文m高位<br>&lt;3&gt;已知私钥高位d(私钥泄露攻击)<br>. RSA已知高位攻击实用情况:题目所给与同指数攻击相似，有多个公钥模数N，以及未知参数的范围已知或者所给题目中有两个N，其中一个可进行分解，且与另外一个有关系。<br><img src="/images/139.png"><br><img src="/images/140.png"><br><img src="/images/141.png"></p>
+<h2 id="RSA低加密指数攻击"><a href="#RSA低加密指数攻击" class="headerlink" title="RSA低加密指数攻击"></a>RSA低加密指数攻击</h2><p>例如:n很大，4000多位，e很小，e&#x3D;3<br>一般来说，e选取65537.但是在RSA加密的时候有可能会选用e&#x3D;3(因为选取e&#x3D;3省时省力，并且他可能觉得n在4000多位是很安全的，).<br>在这种不安全的情况下，可以直接求得m<br>原公式:<br>c&#x3D;m^e mod n&#x3D;m^3 mod n所以解密公式还能写为:<br>m&#x3D;iroot (c, 3)mod n函数iroot()的意思是开方数N，以及未知参数的范围已知或者所给题目中有两个N，其中一个可进行分解，且与另外一个有关系。</p>
+<h2 id="低加密指数广播攻击"><a href="#低加密指数广播攻击" class="headerlink" title="低加密指数广播攻击"></a>低加密指数广播攻击</h2><p><img src="/images/142.png"><br>中国剩余定理简述:<br>N&#x3D;3<em>5直7<br>x&#x3D;2(mod 3)N1&#x3D;5</em>7&#x3D;35 n1&#x3D;3 d1&#x3D;invert(N1,n1)&#x3D;2x&#x3D;3(mod 5)N2&#x3D;3<em>7&#x3D;21 n2&#x3D;5 d2&#x3D;invert(N2,n2)&#x3D;1x&#x3D;2(mod 7)N3&#x3D;3</em>5&#x3D;15 n3&#x3D;7 d3&#x3D;invert(N3,n3)&#x3D;1x&#x3D;(c1<em>d1</em>N1+c2<em>d2</em>N2+c3<em>d3</em>N3)%N<br>之后对x使用gmpy2.iroot ( ) ,开次方<br>x1除以3余2，且是5和7的公倍数。<br>×2除以5余3，且是3和7的公倍数。x3除以7余2，且是3和5的公倍数<br>(a+i<em>b)%b&#x3D;c [i为任意非零整数]和 a%b &#x3D;c等价<br>本质是从5和7的公倍数中找一个除以3余2的数x1，从3和7的公倍数中找一个除以5余3的数x2，从3和5的公倍数中找一个除以7余2的数x3，再将三个数相加得到解。在求x1，x2，x3时又用了一个小技巧，以x1为例，并非从5和7的公倍数中直接找一个除以3余2的数，而是先找一个除以3余1的数，再乘以2。也就是先求出5和7的公倍数模3下的逆元，再用逆元去乘余数。<br>如果a%b&#x3D;c，那么(a</em>k)%b&#x3D;a%b+a‰b t ..ta%‰&#x3D;c+C. ..+C&#x3D;k<em>c(k&gt;0)也就是说，如果一个除法的余数为c，那么被除数的k倍与除数相除的余数为k</em>C。<br>中国剩余定理便得到方式组的唯一解</p>
+<h2 id="维纳攻击"><a href="#维纳攻击" class="headerlink" title="维纳攻击"></a>维纳攻击</h2><p><img src="/images/143.png"></p>
+<h2 id="四方密码"><a href="#四方密码" class="headerlink" title="四方密码"></a>四方密码</h2><p>四方密码是一种对称式加密法，由法国人Felix Delastelle发明。这种方法将字母两个一组，然后采用多字母替换密码。四方密码用4个5×5的矩阵来加密。每个矩阵都有25个字母。<br>英文中有26个字母，所以一般是去掉其中的Q或者将i和j当做一样。四方密码有4个矩阵（有两个秘钥矩阵，两个顺序矩阵）。<br>以单词hello和world作为密钥，去除重复字母为helo和world,将第一个秘钥矩阵放在右上角，第二个秘钥矩阵放在左下角，两个顺序矩阵分别放在左上角和右下角<br><img src="/images/147.png"></p>
+<h2 id="序列密码"><a href="#序列密码" class="headerlink" title="序列密码"></a>序列密码</h2><p>序列密码单独加密每个位。它是通过将密钥序列中的每个位与每个明文位相加实现的。同步序列密码的密码序列仅仅取决于密钥，而异步序列密码的密钥序列则取决于密钥和密文。绝大多数实际中使用的序列密码都是同步序列密码。<br>如果图中的虚线出现，则说明该序列密码是异步序列密码。<br><img src="/images/148.png"><br><img src="/images/149.png"></p>
+<h2 id="DES和3DES"><a href="#DES和3DES" class="headerlink" title="DES和3DES"></a>DES和3DES</h2><p><img src="/images/150.png"><br>影响因素:<br>Feistel结构的具体实现依赖于以下参数和特征:<br>分组长度:分组长度越长意味着安全性越高，但是会降低加、解密的速度。这种安全性的增加来自更好的扩散性。<br>密钥长度:密钥较长同样意味着安全性较高，但会降低加、解密的速度。这种安全性的增加来自更好的抗穷尽攻击能力和更好的混淆性。现在一般认为64位的密钥还不够。通常使用的密钥长度是128位。<br>迭代轮数:Feistel密码的本质在于单轮不能提供足够的安全性而多轮加密可取得很高的安全性。迭代轮数的典型值是16。<br>子密钥产生算法:子密钥产生越复杂，密码分析就越困难。<br>轮函数F:同样，轮函数越复杂，抗攻击的能力就越强。<br><img src="/images/151.png"><br>子密钥的生成:<br>由64位变为56位，进行循环左移，去掉第9，18，22，25，35，38，43，54，56位变成48位，此时为ki的生成过程。（压缩置换)<br>56位移位后的密钥作为进行下一轮的计算原密钥。</p>
+<h2 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h2><p>AES<br>AES的本质:<br>替换，移位，异或每一步都是可逆的<br>关于AES的事实<br>1．分组大小位128位(较大的分组长度不是AES算法官方标准)2．密钥长度可为128，192及256位<br>3．运算的轮次根据密钥的不同，从10轮至14轮不等4．每轮包含四个函数:<br>1.Bytesub(非线性层)2. ShiftRow(线性混合层)3. MixColumn(非线性层)4. AddRoundkey(密钥添加层)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/" data-id="cldv55z9h000h0wu737p67suf" data-title="密码学" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/07/padding-oracle/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          padding oracle
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">音频隐写</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/08/XML/">XML</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/pwn/">pwn</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 殆尽<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>padding oracle | 北暮南辞</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="padding oracle原理和简单利用CBC模式CBC模式是一种分组链接模式，目的是为了使原本独立的分组密码加密过程形成迭代，使每次加密的结果影响到下一次加密。这可以强化加密算法的”敏感性”，即实现所谓的”雪崩效应”，在香浓理论中这就是”扰乱原则”CBC模式涉及分组，所以肯定存在不能正好分组的情况，这种情况下就需要对最后一组进行填充使用·一定规则。DES满足PKCS#5,AES满足PKCS#7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="padding oracle">
+<meta property="og:url" content="http://example.com/2023/02/07/padding-oracle/index.html">
+<meta property="og:site_name" content="北暮南辞">
+<meta property="og:description" content="padding oracle原理和简单利用CBC模式CBC模式是一种分组链接模式，目的是为了使原本独立的分组密码加密过程形成迭代，使每次加密的结果影响到下一次加密。这可以强化加密算法的”敏感性”，即实现所谓的”雪崩效应”，在香浓理论中这就是”扰乱原则”CBC模式涉及分组，所以肯定存在不能正好分组的情况，这种情况下就需要对最后一组进行填充使用·一定规则。DES满足PKCS#5,AES满足PKCS#7">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/144.png">
+<meta property="og:image" content="http://example.com/images/145.png">
+<meta property="og:image" content="http://example.com/images/146.png">
+<meta property="article:published_time" content="2023-02-07T09:50:57.000Z">
+<meta property="article:modified_time" content="2023-02-07T10:11:49.490Z">
+<meta property="article:author" content="殆尽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/144.png">
+  
+    <link rel="alternate" href="/atom.xml" title="北暮南辞" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北暮南辞</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ctf小萌新一枚</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-padding-oracle" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/padding-oracle/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T09:50:57.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      padding oracle
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="padding-oracle原理和简单利用"><a href="#padding-oracle原理和简单利用" class="headerlink" title="padding oracle原理和简单利用"></a>padding oracle原理和简单利用</h2><p>CBC模式<br>CBC模式是一种分组链接模式，目的是为了使原本独立的分组密码加密过程形成迭代，使每次加密的结果影响到下一次加密。这可以强化加密算法的”敏感性”，即实现所谓的”雪崩效应”，在香浓理论中这就是”扰乱原则”<br><img src="/images/144.png"><br><img src="/images/145.png"><br>CBC模式涉及分组，所以肯定存在不能正好分组的情况，这种情况下就需要对最后一组进行填充使用·一定规则。<br>DES满足PKCS#5,AES满足PKCS#7,实际上两者的要求基本一样，区别在于PKCS #5填充是八字节分组而PKCS#7是十六字节，换句话说就是填充的最大位数不一样，一个是o到8一个是o到16.<br><img src="/images/146.png"></p>
+<h2 id="padding-oracle攻击原理"><a href="#padding-oracle攻击原理" class="headerlink" title="padding oracle攻击原理"></a>padding oracle攻击原理</h2><p>首先了解一下使用CBC模式加密敏感信息的服务器是怎么处理我们提交的内容的。假设我们向服务器提交了正确的密码，我们的密码在经过CBC模式加密后传给了服务器，这时服务器会对我们传来的信息尝试解密，如果可以正常解密会返回一个值表示正确，如果不能正常解密则会返回一个值表示错误。而事实上，判断提交的密文能不能正常解密，第一步就是判断密文最后一组的填充值是否正确，也就是观察最后一组解密得到的结果的最后几位，如果错误将直接返回错误，如果正确，再将解密后的结果与服务器存储的结果比对，判断是不是正确的用户。也就是说服务器一共可能有三种判断结果:<br>1.密文不能正常解密;<br>2.密文可以正常解密但解密结果不对;<br>3.密文可以正常解密并且解密结果比对正确;<br>其中第一种情况与第二三种情况的返回值一定不一样，这就给了我们可乘之机——我们可以利用服务器的返回值判断我们提交的内容能不能正常解密，进一步讲，我们可以知道最后一组密文的填充位符不符合填充标准。<br>过程:<br>(1）假设我们捕获到了传输的密文并且我们知道是CBC模式采用的什么加密算法，我们把密文按照加密算法的要求分好组，然后对倒数第二组密文进行构造;<br>(2）先假定明文只填充了一字节，对倒数第二组密文的最后一字节从Ox00到Oxff逐个赋值并逐个向服务器提交，直到服务返回值表示构造后的密文可以正常解密，这意味着构造后的密文作为最后一组密文的IV解密最后一组明文，明文的最后一位是Ox01，也就是说构造的倒数第二组密文的最后一字节与最后一组密文对应中间值的最后一位相异或的结果是Ox01;<br>(3）利用异或运算的性质，我们把我们构造的密文的最后一字节与0x01异或便可得到最后一位密文解密后的中间值（密文与key运算的中间结果是什么，这里我们设为M1，我们已经知道了plaintext的最后一字节是Ox01，可以知道它是由我们构造的IV值与中间值的最后一字节异或得到的;<br>(4）再假定明文填充了两字节也就是明文最后两字节是Ox02，接着构造倒数第二组密文，我们把M1与Ox02异或可以得到填充两字节时密文的最后一位应该是什么，这时候我们只需要对倒数第二位进行不断地赋值尝试（也是从Ox00到Oxff)，当服务器返回值表示可以正常解密时，我们把此时的倒数第二位密文的取值与0xO2异或便可得到最后一组密文倒数第二字节对应的中间值;<br>(5）后再构造出倒数第三倒数第四直到得到最后一组密文的中间值，把这个中间值与截获的密文的倒数第二组异或便可得到最后一组分组的明文;<br>(6）舍弃掉最后一组密文，只提交第一组到倒数第二组密文，通过构造倒数第三组密文得到倒数第二组密文的铭文，最后我们便可以得到全部的明文。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/padding-oracle/" data-id="cldv55z9e00070wu7drjb58fi" data-title="padding oracle" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/07/%E9%80%86%E5%90%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          逆向
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/%E5%AF%86%E7%A0%81%E5%AD%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">密码学</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/08/XML/">XML</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/pwn/">pwn</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 殆尽<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

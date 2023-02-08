@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>pwn | 北暮南辞</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Pwn的由来PWN是一个黑客语法的俚语词，自“own”这个字引申出来的，这个词的含义在于，玩家在整个邮递对战中处于胜利的优势，或是说明竞争对手处在完全惨败的情况下。GDB调试gdb是Linux下常用的一款命令行调试器，拥有十分强大的调试功能。汇编基础汇编语言中，esp寄存器用于指示当前函数栈帧的栈顶的位置，函数中局部变量都存储在栈空间中，栈的生长方向是从高地址到低地址方向增长的。PWN入门漏洞一般">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn">
+<meta property="og:url" content="http://example.com/2023/02/07/pwn/index.html">
+<meta property="og:site_name" content="北暮南辞">
+<meta property="og:description" content="Pwn的由来PWN是一个黑客语法的俚语词，自“own”这个字引申出来的，这个词的含义在于，玩家在整个邮递对战中处于胜利的优势，或是说明竞争对手处在完全惨败的情况下。GDB调试gdb是Linux下常用的一款命令行调试器，拥有十分强大的调试功能。汇编基础汇编语言中，esp寄存器用于指示当前函数栈帧的栈顶的位置，函数中局部变量都存储在栈空间中，栈的生长方向是从高地址到低地址方向增长的。PWN入门漏洞一般">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/172.png">
+<meta property="og:image" content="http://example.com/images/173.png">
+<meta property="og:image" content="http://example.com/images/174.png">
+<meta property="og:image" content="http://example.com/images/175.png">
+<meta property="og:image" content="http://example.com/images/176.png">
+<meta property="og:image" content="http://example.com/images/177.png">
+<meta property="og:image" content="http://example.com/images/178.png">
+<meta property="og:image" content="http://example.com/images/179.png">
+<meta property="og:image" content="http://example.com/images/180.png">
+<meta property="og:image" content="http://example.com/images/181.png">
+<meta property="article:published_time" content="2023-02-07T10:43:44.000Z">
+<meta property="article:modified_time" content="2023-02-08T03:26:36.030Z">
+<meta property="article:author" content="殆尽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/172.png">
+  
+    <link rel="alternate" href="/atom.xml" title="北暮南辞" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北暮南辞</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ctf小萌新一枚</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-pwn" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/pwn/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T10:43:44.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      pwn
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Pwn的由来<br>PWN是一个黑客语法的俚语词，自“own”这个字引申出来的，这个词的含义在于，玩家在整个邮递对战中处于胜利的优势，或是说明竞争对手处在完全惨败的情况下。<br><img src="/images/172.png"><br>GDB调试<br>gdb是Linux下常用的一款命令行调试器，拥有十分强大的调试功能。<br><img src="/images/173.png"><br>汇编基础<br>汇编语言中，esp寄存器用于指示当前函数栈帧的栈顶的位置，函数中局部变量都存储在栈空间中，栈的生长方向是从高地址到低地址方向增长的。<br><img src="/images/174.png"><br>PWN入门<br>漏洞一般是gets函数这种对输入没有限制导致溢出、格式化字符串漏洞、数据类型转换的时候产生了溢出。<br>环境<br>Ubuntu虚拟机<br>Pwntools<br>Gdb-peda<br>LibcSearcher<br>Pwntools安装:<br>一个ctf框架和漏洞利用开发库，用python开发,必备神器。<br>apt-get install python python-pip python-dev libssl-dev libffi-dev build-essentialpip install -U setuptools<br>pip install –upgrade pip<br>pip install –upgrade pwntools<br>安装完成后，打开python测试，执行from pwn import *不会报错即可。<br>Gdb安装:<br>动态调试软件，必备。apt-get install gdb<br>Peda插件安装:<br>Gdb常用插件，可以提升调试效率<br>git clone <a target="_blank" rel="noopener" href="https://github/">https://github</a>. com&#x2F;longld&#x2F;peda.git<del>&#x2F;peda<br>echo “source ~&#x2F;peda&#x2F;peda. py”&gt;&gt;</del>l .gdbinit<br>32位程序支持:<br>必备<br>apt-get install libc6-dev-i 386<br>LibcSearcher:<br>泄露libc库中函数的偏移的库，建议安装，可以节省时间，提高效率。<br>sudo pip install capstone<br>git clone https:&#x2F;lgithub. com&#x2F;lieanu&#x2F;LibcSearcher. git<br>cd LibcSearcher<br>python setup. py develop</p>
+<h2 id="寄存器相关知识"><a href="#寄存器相关知识" class="headerlink" title="寄存器相关知识"></a>寄存器相关知识</h2><p>EIP:主要用于存放当前代码段即将被执行的下一条指令的偏移，但其本质上并不能直接被指令直接访问。<br>ESP:栈顶指针，始终指向栈顶。<br>EBP:栈底指针，通常叫栈基址。<br>栈溢出<br>当一个我们在输入数据时，如果程序对输入没有限制，会导致输入的超出预定的范围，覆盖掉原来的数据。<br><img src="/images/175.png"><br>CANNARY(栈保护)<br>CANNARY是一种缓冲区溢出攻击的缓解手段，当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux中我们将cookie信息称为canaryo</p>
+<h2 id="ret2text"><a href="#ret2text" class="headerlink" title="ret2text"></a>ret2text</h2><p>Ret2text即执行程序种已有的代码，例如程序种写有system等系<br>系统的调用函数。<br><img src="/images/176.png"><br><img src="/images/177.png"><br><img src="/images/178.png"><br>PLT与GOT<br><img src="/images/179.png"><br>Ret2libc介绍<br>Ret2libc即控制函数的执行libc中的函数，通常是返回至某个函数的具体位置。一般情况下我们会选择执行system ( “&#x2F;bin&#x2F;sh”) ,所以我们需要知道system函数的地址。<br>CTF移动逆向概述<br>1.移动逆向题目概述<br>如今的CTF比赛中，常见的题目类型有MISC，Crypto，Web，Reverse,PWN。但在MISC中，有的时候会出现“.apk”后缀的文件格式。Reverse目录下除了有.exe格式的文件，也可能会有. apk文件现在比较大型的CTF竞赛，都会有一个专门的Mobile栏目，栏目下的题目基本上都是移动逆向的题目。包括IOS逆向与Android逆向，Android逆向的占比较大。随着CTF比赛规模的增大，移动逆向相关的题目也会越来越多。<br>2.移动逆向题目考察技能点<br>由于安卓逆向的题目在CTF移动逆向模块中的出现次数较多，故本次课程以安卓逆向为主。IOS逆向可能会<br>有部分区别，但也可借鉴这种逆向分析思路。目前来说，CTF题目中的安卓逆向题目主要考察参赛者的以下能力:<br>1.信息搜集能力<br>2.安卓逆向(smali代码）静态分析能力<br>3.安卓so文件的逆向分析能力<br>4.Java代码的分析能力<br>5.算法还原，代码编写能力<br>6.结合AS进行代码的动态调试能力<br>7.应用脱壳，OLLVM混淆分析能力<br>3.移动逆向出题目形式<br>一般移动逆向的题目，会给出一个附件，下载完成后，参赛选手需要根据附件内容进行分析。如果是.apk文件，直接安装在安卓设备上或者模拟器中，进行测试，寻找flag。对于后缀名不是.apk的文件，需要使用WinHex或者使用010Editor查看附件的文件结构。对文件进行复原，如下图中的附件。将文件复原成.apk文件后，就可以进行安装分析了。<br><img src="/images/180.png"></p>
+<h2 id="做Android逆向题的准备工作"><a href="#做Android逆向题的准备工作" class="headerlink" title="做Android逆向题的准备工作"></a>做Android逆向题的准备工作</h2><p>工欲善其事必先利其器<br>在参加CTF时，想要方便快捷的解答Android逆向题目，就应该赛前准备好环境。包括JDK SDK NDK<br>Adb ApkTool<br>Jadx<br>AndroidK iller<br>AndroidStudioApkScan-PKIDGDA<br>IDA<br>具有root权限的安卓模拟器(夜神雷电蓝叠)<br>或者一台具有root权限的安卓手机(google nuexs 5x)<br>CTF中安卓明文flag类题目概述</p>
+<h2 id="对付此类题目的一些Tips"><a href="#对付此类题目的一些Tips" class="headerlink" title="对付此类题目的一些Tips"></a>对付此类题目的一些Tips</h2><p>1.使用现有工具<br>查壳工具AndroidKiller lDA脱壳机<br>2.直接暴力强行逆向<br>此方法为做逆向的通常思路，当遇到算法校验时，要逆向还原出算法。<br>3.异想天开,另辟蹊径<br>可能出题者因为出题思路不严谨，题目存在bug，因此题目的解法与出颖者的预想思路不同但同样能够获取到flag</p>
+<h2 id="明文flag逆向题目一般解题流程"><a href="#明文flag逆向题目一般解题流程" class="headerlink" title="明文flag逆向题目一般解题流程"></a>明文flag逆向题目一般解题流程</h2><p>一些Android逆向题目解题步骤<br>做安卓逆向CrackMe的一般流程:<br>1.首先查看下载好的附件是否后缀为. apk文件<br>2.安装测试apk文件，找到返回的关键信息<br>3.查询apk是否被加固是否有壳<br>4.反编译apk<br>5.定位关键信息<br>6.函数实现功能的具体分析<br>7.修改关键部分的smali代码<br>8.将修改好的apk进行编译<br>9.签名安装，测试apk文件</p>
+<h2 id="了解Android的文件结构"><a href="#了解Android的文件结构" class="headerlink" title="了解Android的文件结构"></a>了解Android的文件结构</h2><p>META-INF目录签名信息，包括公司信息、文件的HASH值<br>Res目录资源信息，包括图片、xml(布局文件、字符串、风格样式等)<br>AndroidMainfest.xml清单文件，包括APK包名、四大组件的一些申明定义、权限、程序的入口<br>Classes.dex可执行文件，包括java的类信息、方法信息、字段信息、虚拟机指令。<br>dex文件的生成流程是从java源码-&gt;class文件-&gt;dex文件<br>Resources.arsc资源序号文件，包括资源里的所有ID、名称。资源ID对应文件是R.class<br>Lib目录动态库，扩展名是.so ,包括C++代码，有各种平台，比如x86,armAssets目录自定义资源，比如.txt,mp4等文件<br><img src="/images/181.png"></p>
+<h2 id="了解Android的文件结构-1"><a href="#了解Android的文件结构-1" class="headerlink" title="了解Android的文件结构"></a>了解Android的文件结构</h2><p>分析smali跳转语法<br>CrackMe_clover02.apk<br>要获取到vip权限才能拿到flag。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/pwn/" data-id="cldv55z9e00080wu710hkdhbt" data-title="pwn" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/08/XML/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          XML
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">字符转换算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/08/XML/">XML</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/pwn/">pwn</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 殆尽<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

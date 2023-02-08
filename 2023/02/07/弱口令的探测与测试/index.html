@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>弱口令的探测与测试 | 北暮南辞</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="弱口令的探测与测试弱口令(weak password)没有严格和准确的定义，通常认为容易被别人（他们有可能对你很了解）猜测到或被破解工具破解的口令均为弱口令。弱口令指的是仅包含简单数字和字母的口令，例如“123”、”abc”等，因为这样的口令很容易被别人破解，从而使用户的计算机面临风险，因此不推荐用户使用。弱口令的危害在当今很多地方以用户名(帐号)和口令作为鉴权的世界，口令的重要性就可想而知了。口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="弱口令的探测与测试">
+<meta property="og:url" content="http://example.com/2023/02/07/%E5%BC%B1%E5%8F%A3%E4%BB%A4%E7%9A%84%E6%8E%A2%E6%B5%8B%E4%B8%8E%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="北暮南辞">
+<meta property="og:description" content="弱口令的探测与测试弱口令(weak password)没有严格和准确的定义，通常认为容易被别人（他们有可能对你很了解）猜测到或被破解工具破解的口令均为弱口令。弱口令指的是仅包含简单数字和字母的口令，例如“123”、”abc”等，因为这样的口令很容易被别人破解，从而使用户的计算机面临风险，因此不推荐用户使用。弱口令的危害在当今很多地方以用户名(帐号)和口令作为鉴权的世界，口令的重要性就可想而知了。口">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/98.png">
+<meta property="og:image" content="http://example.com/images/99.png">
+<meta property="og:image" content="http://example.com/images/100.png">
+<meta property="og:image" content="http://example.com/images/101.png">
+<meta property="og:image" content="http://example.com/images/102.png">
+<meta property="article:published_time" content="2023-02-07T08:07:09.000Z">
+<meta property="article:modified_time" content="2023-02-07T08:21:32.756Z">
+<meta property="article:author" content="殆尽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/98.png">
+  
+    <link rel="alternate" href="/atom.xml" title="北暮南辞" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北暮南辞</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">ctf小萌新一枚</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-弱口令的探测与测试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/%E5%BC%B1%E5%8F%A3%E4%BB%A4%E7%9A%84%E6%8E%A2%E6%B5%8B%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T08:07:09.000Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      弱口令的探测与测试
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="弱口令的探测与测试"><a href="#弱口令的探测与测试" class="headerlink" title="弱口令的探测与测试"></a>弱口令的探测与测试</h2><p>弱口令(weak password)没有严格和准确的定义，通常认为容易被别人（他们有可能对你很了解）猜测到或被破解工具破解的口令均为弱口令。弱口令指的是仅包含简单数字和字母的口令，例如“123”、”abc”等，因为这样的口令很容易被别人破解，从而使用户的计算机面临风险，因此不推荐用户使用。<br><img src="/images/98.png"><br>弱口令的危害<br>在当今很多地方以用户名(帐号)和口令作为鉴权的世界，口令的重要性就可想而知了。口令就相当于进入家门的钥匙，当他人有一把可以进入你家的钥匙，想想你的安全、你的财物、你的隐利.…….害怕了吧。因为弱口令很容易被他人猜到或破解，所以如果你使用弱口令，就像把家门钥匙放在家门口的垫子下面，是非常危险的。<br>暴力破解的定义<br>暴力破解的原理就是使用攻击者自己的用户名和密码字典，一个一个去枚举，尝试是否能够登录。理论上来说，只要字典足够庞大，枚举总是能够成功的!</p>
+<h2 id="lntruder使用场景和实战"><a href="#lntruder使用场景和实战" class="headerlink" title="lntruder使用场景和实战"></a>lntruder使用场景和实战</h2><p>Burp lntruder通常被使用在以下场景:<br>1.标识符枚举Web应用程序经常使用标识符来引用用户、账户、资产等数据信息。例如:用户名，文件ID和账户名。<br>2.提取有用的数据在某些场景下，而不是简单地识别有效标识符，你需要通过简单标识符提取一些其他的数据。比如说:你想通过用户的个人空间id，获取所有用户在个人空间标准的昵称和年龄。<br>3.模糊测试很多输入型的漏洞，如SQL注入，跨站点脚本和文件路径遍历可以通过请求参数提交各种测试字符串，并分析错误消息和其他异常情况，来对应用程序进行检测。由于应用程序的大小和复杂性，手动执行这个测试是一个耗时且繁琐的过程。这样的场景，您可以设置Payload，通过Burp lntruder自动化地对Web应用程序进行模糊测试。<br>攻击类型<br>狙击手模式(Sniper)<br>添加了一个参数，且假设payload有2个，那么就会执行2次。<br>添加了两个参数，就会挨着来，第一个参数开始爆破时，第二个不变，如此这样,会进行2+2次，总共4次爆破。<br><img src="/images/99.png"><br>攻城锤模式(Battering ram)<br>sniper模式不同的地方在于，同样情况下，攻击次数减半，每次两个位置用同样的密码。<br><img src="/images/100.png"><br>草叉模式(Pitchfork )<br>可以多组密码本payload，又与攻城锤模式相同的地方在于一一对应，现在添加包含3、4的密码本payload。<br><img src="/images/101.png"><br>集束炸弹模式(Cluster bomb)<br>跟操叉模式相似的是多个密码本对应多个位置，不同的是不再是一一对应，而是交叉组合，每一个密码本里的密码都对应于另一密码本所有密码。<br><img src="/images/102.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/%E5%BC%B1%E5%8F%A3%E4%BB%A4%E7%9A%84%E6%8E%A2%E6%B5%8B%E4%B8%8E%E6%B5%8B%E8%AF%95/" data-id="cldv55z9h000g0wu7dlapazjm" data-title="弱口令的探测与测试" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/07/%E8%B6%8A%E6%9D%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          越权
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/07/XSS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">XSS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E/">条件竞争漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/08/XML/">XML</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/pwn/">pwn</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%AD%97%E7%AC%A6%E8%BD%AC%E5%8C%96/">字符转换算法</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">动态调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 殆尽<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
